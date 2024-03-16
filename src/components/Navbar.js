@@ -4,7 +4,7 @@ import { Stack } from "@mui/material";
 
 import Logo from "../assets/images/Logo.png";
 
-const Navbar = () => (
+const Navbar = ({ isLoggedIn, userName }) => (
   <Stack
     direction="row"
     justifyContent="space-around"
@@ -19,7 +19,7 @@ const Navbar = () => (
       <img
         src={Logo}
         alt="logo"
-        style={{ width: "48px", height: "48px", margin: "0px 20px" }}
+        style={{ width: "80px", height: "80px", margin: "0px 20px" }}
       />
     </Link>
     <Stack
@@ -39,9 +39,45 @@ const Navbar = () => (
       >
         Home
       </Link>
-      <a href="#exercises" style={{ textDecoration: "none", color: "#3A1212" }}>
+      <Link
+        to="/exercises"
+        style={{
+          textDecoration: "none",
+          color: "#3A1212",
+        }}
+      >
         Exercises
-      </a>
+      </Link>
+      <Link
+        to="/recipes"
+        style={{
+          textDecoration: "none",
+          color: "#3A1212",
+        }}
+      >
+        Recipes
+      </Link>
+      {isLoggedIn ? (
+        <Link
+          to="/mypage"
+          style={{
+            textDecoration: "none",
+            color: "#3A1212",
+          }}
+        >
+          My Page ({userName})
+        </Link>
+      ) : (
+        <Link
+          to="/login"
+          style={{
+            textDecoration: "none",
+            color: "#3A1212",
+          }}
+        >
+          Login
+        </Link>
+      )}
     </Stack>
   </Stack>
 );
