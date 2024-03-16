@@ -1,27 +1,41 @@
-import React, { useState } from "react";
-import { Box } from "@mui/material";
-
-import Exercises from "../components/Exercises";
-import SearchExercises from "../components/SearchExercises";
-import HeroBanner from "../components/HeroBanner";
+import React from "react";
+import { Box, Link } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
-  const [exercises, setExercises] = useState([]);
-  const [bodyPart, setBodyPart] = useState("all");
+  const navigate = useNavigate();
+
+  const handleExerciseClick = () => {
+    navigate("/exercises");
+  };
+
+  const handleRecipeClick = () => {
+    navigate("/recipes");
+  };
 
   return (
-    <Box>
-      <HeroBanner />
-      <SearchExercises
-        setExercises={setExercises}
-        bodyPart={bodyPart}
-        setBodyPart={setBodyPart}
-      />
-      <Exercises
-        setExercises={setExercises}
-        exercises={exercises}
-        bodyPart={bodyPart}
-      />
+    <Box
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      height="100vh"
+    >
+      <Link style={{ marginRight: "10px" }} onClick={handleExerciseClick}>
+        <img
+          src="/exercise_photo.jpg" // Path to your exercise photo
+          alt="Exercises"
+          style={{ width: "70%", maxWidth: "400px", cursor: "pointer" }}
+          title="Exercises"
+        />
+      </Link>
+      <Link style={{ marginLeft: "10px" }} onClick={handleRecipeClick}>
+        <img
+          src="/recipe_photo.jpg" // Path to your recipe photo
+          alt="Recipes"
+          style={{ width: "70%", maxWidth: "400px", cursor: "pointer" }}
+          title="Recipes"
+        />
+      </Link>
     </Box>
   );
 };

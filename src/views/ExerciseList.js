@@ -26,4 +26,4 @@ const ExerciseList = () => {
 
 export default ExerciseList;
 
-//add a button to send the exercise to the workout plan table
+
