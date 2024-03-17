@@ -14,6 +14,14 @@ export const youtubeOptions = {
   },
 };
 
+export const recipeOptions = {
+  method: "GET",
+  headers: {
+    "X-RapidAPI-Host": "edamam-recipe-search.p.rapidapi.com",
+    "X-RapidAPI-Key": "177ed6bc56mshdb0536d4d73cf38p1a682fjsn9405fee34da6",
+  },
+};
+
 export const fetchData = async (url, options) => {
   const res = await fetch(url, options);
   const data = await res.json();
