@@ -11,6 +11,7 @@ import ExerciseList from "./views/ExerciseList";
 import MyPage from "./views/MyPage";
 import Recipes from "./views/Recipes";
 import RegisterSignIn from "./views/RegisterSignIn";
+import RecipeDetail from "./views/RecipeDetail";
 
 const app = () => {
   return (
@@ -23,6 +24,7 @@ const app = () => {
         <Route path="/login" element={<RegisterSignIn />} />
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/recipes" element={<Recipes />} />
+        <Route path="/recipes/:id" element={<RecipeDetail />} />
       </Routes>
       <Footer />
     </Box>

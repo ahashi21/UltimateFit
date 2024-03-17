@@ -1,45 +1,33 @@
 import React, { useEffect, useState } from "react";
 import { Box, Button, Stack, TextField, Typography } from "@mui/material";
-
-import { exerciseOptions, fetchData } from "../utils/fetchData";
+import { fetchData, recipeOptions } from "../utils/fetchData";
 import HorizontalScrollbar from "./HorizontalScrollbar";
 
-const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
+const SearchRecipes = ({ setRecipes }) => {
   const [search, setSearch] = useState("");
-  const [bodyParts, setBodyParts] = useState([]);
+  const [diets, setDiets] = useState([]);
 
   useEffect(() => {
-    const fetchExercisesData = async () => {
-      const bodyPartsData = await fetchData(
-        "https://exercisedb.p.rapidapi.com/exercises/bodyPartList",
-        exerciseOptions
+    const fetchRecipesData = async () => {
+      const dietsData = await fetchData(
+        "https://api.edamam.com/api/recipes/v2?type=public",
+        recipeOptions
       );
-      console.log("bodyPartsData", bodyPartsData);
-      setBodyParts(["all", ...bodyPartsData]);
+      setDiets(["all", ...dietsData]);
     };
 
-    fetchExercisesData();
+    fetchRecipesData();
   }, []);
 
   const handleSearch = async () => {
     if (search) {
-      const exercisesData = await fetchData(
-        "https://exercisedb.p.rapidapi.com/exercises",
-        exerciseOptions
+      const recipesData = await fetchData(
+        `https://api.edamam.com/api/recipes/v2?type=public&q=${search}`,
+        recipeOptions
       );
 
-      const searchedExercises = exercisesData.filter(
-        (item) =>
-          item.name.toLowerCase().includes(search) ||
-          item.target.toLowerCase().includes(search) ||
-          item.equipment.toLowerCase().includes(search) ||
-          item.bodyPart.toLowerCase().includes(search)
-      );
-
-      window.scrollTo({ top: 1800, left: 100, behavior: "smooth" });
-
-      setSearch("");
-      setExercises(searchedExercises);
+      const searchedRecipes = recipesData.hits.map((hit) => hit.recipe);
+      setRecipes(searchedRecipes);
     }
   };
 
@@ -50,7 +38,9 @@ const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
         sx={{ fontSize: { lg: "44px", xs: "30px" } }}
         mb="49px"
         textAlign="center"
-      ></Typography>
+      >
+        Search Recipes
+      </Typography>
       <Box position="relative" mb="72px">
         <TextField
           height="76px"
@@ -62,7 +52,7 @@ const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
           }}
           value={search}
           onChange={(e) => setSearch(e.target.value.toLowerCase())}
-          placeholder="Search Exercises"
+          placeholder="Search Recipes"
           type="text"
         />
         <Button
@@ -83,15 +73,10 @@ const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
         </Button>
       </Box>
       <Box sx={{ position: "relative", width: "100%", p: "20px" }}>
-        <HorizontalScrollbar
-          data={bodyParts}
-          bodyParts
-          setBodyPart={setBodyPart}
-          bodyPart={bodyPart}
-        />
+        <HorizontalScrollbar data={diets} />
       </Box>
     </Stack>
   );
 };
 
-export default SearchExercises;
+export default SearchRecipes;
