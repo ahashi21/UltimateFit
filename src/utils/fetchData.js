@@ -16,15 +16,34 @@ export const youtubeOptions = {
 
 export const recipeOptions = {
   method: "GET",
+  // url: "https://edamam-recipe-search.p.rapidapi.com/api/recipes/v2",
+
   headers: {
     "X-RapidAPI-Host": "edamam-recipe-search.p.rapidapi.com",
     "X-RapidAPI-Key": "177ed6bc56mshdb0536d4d73cf38p1a682fjsn9405fee34da6",
   },
 };
 
-export const fetchData = async (url, options) => {
-  const res = await fetch(url, options);
-  const data = await res.json();
+export const fetchData = async (baseUrl, options) => {
+  try {
+    let url = new URL(baseUrl);
+    if (options.params) {
+      Object.keys(options.params).forEach((key) =>
+        url.searchParams.append(key, options.params[key])
+      );
+    }
 
-  return data;
+    const { params, ...fetchOptions } = options;
+    const response = await fetch(url, fetchOptions);
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error(`Could not fetch data: ${error}`);
+    throw error;
+  }
 };
