@@ -1,13 +1,50 @@
-import React from "react";
+import React, { useState } from "react";
+import {
+  Box,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+} from "@mui/material";
+// import AddWorkoutPlan from "../components/AddWorkoutPlan";
+// import ExerciseList from "./ExerciseList";
 
-function MyPage() {
-  return <div>MyPage</div>;
-}
+const Mypage = () => {
+  const [workoutPlan, setWorkoutPlan] = useState([]);
 
-export default MyPage;
+  const addExerciseToPlan = (exercise) => {
+    setWorkoutPlan([...workoutPlan, exercise]);
+  };
 
-//create code for add selected exercises in the workout plan table
+  return (
+    <Box>
+      <TableContainer component={Paper}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>Exercise Name</TableCell>
+              <TableCell>Sets</TableCell>
+              <TableCell>Weight</TableCell>
+              <TableCell># Reps</TableCell>
+              <TableCell>Delete</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {workoutPlan.map((exercise, index) => (
+              <TableRow key={index}>
+                <TableCell>{exercise.name}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      {/* <AddWorkoutPlan onAddToWorkoutPlan={addExerciseToPlan} />
+      <ExerciseList addExerciseToPlan={addExerciseToPlan} /> */}
+    </Box>
+  );
+};
 
-//each lane table should contain name of exercise, #of sets, #of reps, weight and a delete button(to take exercise of the table)
-
-// add list with the name(linked to recipe page) only of favorited recipes (use photolabs as model)
+export default Mypage;

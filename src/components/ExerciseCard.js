@@ -1,8 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Button, Stack, Typography } from "@mui/material";
+import AddWorkoutPlan from "./AddWorkoutPlan";
 
-const ExerciseCard = ({ exercise }) => (
+const ExerciseCard = ({ exercise, onAddToWorkoutPlan }) => (
   <Link className="exercise-card" to={`/exercise/${exercise.id}`}>
     <img src={exercise.gifUrl} alt={exercise.name} loading="lazy" />
     <Stack direction="row">
@@ -42,6 +43,7 @@ const ExerciseCard = ({ exercise }) => (
     >
       {exercise.name}
     </Typography>
+    <AddWorkoutPlan onClick={onAddToWorkoutPlan} />
   </Link>
 );
 

@@ -14,6 +14,12 @@ const ExerciseDetail = () => {
   const [equipmentExercises, setEquipmentExercises] = useState([]);
   const { id } = useParams();
 
+   // Define addExerciseToPlan outside of useEffect
+   const addExerciseToPlan = (exercise) => {
+    // Logic to add exercise to workout plan
+    console.log("Exercise added to workout plan:", exercise);
+  };
+
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
 
@@ -54,7 +60,10 @@ const ExerciseDetail = () => {
 
   return (
     <Box sx={{ mt: { lg: "96px", xs: "60px" } }}>
-      <Detail exerciseDetail={exerciseDetail} />
+      <Detail
+        exerciseDetail={exerciseDetail}
+        onAddToWorkoutPlan={addExerciseToPlan}
+      />
       <ExerciseVideos
         exerciseVideos={exerciseVideos}
         name={exerciseDetail.name}

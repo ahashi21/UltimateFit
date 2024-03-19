@@ -43,33 +43,25 @@ const Recipes = () => {
         />
 
         {recipes.map((recipe) => (
-          <div className="nutr-block" key={recipe.recipe.uri}>
-            <div className="row">
-              <div className="col-md-4">
-                <div className="recipe-ico">
-                  <img src={recipe.recipe.image} alt="Recipe" />
-                </div>
-              </div>
-              <div className="col-md-8">
-                <div className="recipe-title">
-                  <a href={recipe.recipe.url}>{recipe.recipe.label}</a>
-                </div>
-                <div className="recipe-labels">
-                  {recipe.recipe.healthLabels.map((label) => (
+          <div className="recipe-box" key={recipe.recipe.uri}>
+            <div className="recipe-image">
+              <img src={recipe.recipe.image} alt="Recipe" />
+            </div>
+            <div className="recipe-details">
+              <h3 className="recipe-title">
+                <a href={recipe.recipe.url}>{recipe.recipe.label}</a>
+              </h3>
+              <div className="recipe-labels">
+                {recipe.recipe.dietLabels
+                  .concat(recipe.recipe.healthLabels)
+                  .map((label) => (
                     <span key={label}>{label}</span>
                   ))}
-                </div>
               </div>
-            </div>
-            <div className="row bgr">
-              <div className="col-md-4">
-                <div className="serv">{recipe.recipe.yield} servings</div>
-                <div className="daily-cal-area">
-                  <div className="daily-cal">{recipe.recipe.calories}</div> kcal
-                </div>
-              </div>
-              <div className="col-md-4">
-                <ul className="nutr-left">
+              <div className="recipe-nutrition">
+                <div className="servings">{recipe.recipe.yield} servings</div>
+                <div className="calories">{recipe.recipe.calories} kcal</div>
+                <ul className="nutrients">
                   {Object.entries(recipe.recipe.totalNutrients).map(
                     ([key, nutrient]) => (
                       <li key={key} className={key}>
@@ -77,18 +69,6 @@ const Recipes = () => {
                         <span>
                           {nutrient.quantity.toFixed(2)} {nutrient.unit}
                         </span>
-                      </li>
-                    )
-                  )}
-                </ul>
-              </div>
-              <div className="col-md-4">
-                <ul className="nutr-right">
-                  {Object.entries(recipe.recipe.totalDaily).map(
-                    ([key, nutrient]) => (
-                      <li key={key}>
-                        <span>{nutrient.label}</span>
-                        <span>{nutrient.quantity.toFixed(2)}%</span>
                       </li>
                     )
                   )}
