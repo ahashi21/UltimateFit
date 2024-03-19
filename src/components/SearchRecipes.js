@@ -1,33 +1,71 @@
 import React, { useEffect, useState } from "react";
 import { Box, Button, Stack, TextField, Typography } from "@mui/material";
-import { fetchData, recipeOptions } from "../utils/fetchData";
-import HorizontalScrollbar from "./HorizontalScrollbar";
+// import { fetchData, recipeOptions } from "../utils/fetchData";
 
 const SearchRecipes = ({ setRecipes }) => {
   const [search, setSearch] = useState("");
   const [diets, setDiets] = useState([]);
 
-  useEffect(() => {
-    const fetchRecipesData = async () => {
-      const dietsData = await fetchData(
-        "https://api.edamam.com/api/recipes/v2?type=public",
-        recipeOptions
-      );
-      setDiets(["all", ...dietsData]);
-    };
+  // useEffect(() => {
+  //   const fetchRecipesData = async () => {
+  //     const url =
+  //       "https://edamam-recipe-search.p.rapidapi.com/api/recipes/v2?type=public&ingr=1-100000";
+  //     const options = {
+  //       method: "GET",
+  //       headers: {
+  //         "Accept-Language": "en",
+  //         "X-RapidAPI-Key":
+  //           "177ed6bc56mshdb0536d4d73cf38p1a682fjsn9405fee34da6",
+  //         "X-RapidAPI-Host": "edamam-recipe-search.p.rapidapi.com",
+  //       },
+  //     };
 
-    fetchRecipesData();
-  }, []);
+  //     try {
+  //       const response = await fetch(url, options);
+  //       const result = await response.json();
+  //       setDiets(result.hits);
+  //       console.log("diets", diets);
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //     //   const dietsData = await fetchData(
+  //     //     "https://api.edamam.com/api/recipes/v2?type=public",
+  //     //     recipeOptions
+  //     //   );
+  //     //   setDiets(["all", ...dietsData]);
+  //     // };
+  //   };
+  //   fetchRecipesData();
+  // }, []);
 
   const handleSearch = async () => {
     if (search) {
-      const recipesData = await fetchData(
-        `https://api.edamam.com/api/recipes/v2?type=public&q=${search}`,
-        recipeOptions
-      );
+      const url = `https://edamam-recipe-search.p.rapidapi.com/api/recipes/v2?type=public&q=${search}`;
+      const options = {
+        method: "GET",
+        headers: {
+          "Accept-Language": "en",
+          "X-RapidAPI-Key":
+            "177ed6bc56mshdb0536d4d73cf38p1a682fjsn9405fee34da6",
+          "X-RapidAPI-Host": "edamam-recipe-search.p.rapidapi.com",
+        },
+      };
 
-      const searchedRecipes = recipesData.hits.map((hit) => hit.recipe);
-      setRecipes(searchedRecipes);
+      try {
+        const response = await fetch(url, options);
+        const result = await response.json();
+        console.log("result", result);
+        setRecipes(result.hits);
+      } catch (error) {
+        console.error(error);
+      }
+      // const recipesData = await fetchData(
+      //   `https://api.edamam.com/api/recipes/v2?type=public&q=${search}`,
+      //   recipeOptions
+      // );
+
+      // const searchedRecipes = recipesData.hits.map((hit) => hit.recipe);
+      // setRecipes(searchedRecipes);
     }
   };
 
@@ -71,9 +109,6 @@ const SearchRecipes = ({ setRecipes }) => {
         >
           Search
         </Button>
-      </Box>
-      <Box sx={{ position: "relative", width: "100%", p: "20px" }}>
-        <HorizontalScrollbar data={diets} />
       </Box>
     </Stack>
   );
