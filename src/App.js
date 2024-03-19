@@ -11,7 +11,6 @@ import ExerciseList from "./views/ExerciseList";
 import MyPage from "./views/MyPage";
 import Recipes from "./views/Recipes";
 import RegisterSignIn from "./views/RegisterSignIn";
-import RecipeDetail from "./views/RecipeDetail";
 
 const app = () => {
   return (
