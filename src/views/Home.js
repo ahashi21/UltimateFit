@@ -22,7 +22,7 @@ const Home = () => {
     >
       <Link style={{ marginRight: "10px" }} onClick={handleExerciseClick}>
         <img
-          src="/exercise_photo.jpg" // Path to your exercise photo
+          src="/assets/images/exercise_photo.png"
           alt="Exercises"
           style={{ width: "70%", maxWidth: "400px", cursor: "pointer" }}
           title="Exercises"
@@ -30,7 +30,7 @@ const Home = () => {
       </Link>
       <Link style={{ marginLeft: "10px" }} onClick={handleRecipeClick}>
         <img
-          src="/recipe_photo.jpg" // Path to your recipe photo
+          src="/assets/images/recipe_photo.png"
           alt="Recipes"
           style={{ width: "70%", maxWidth: "400px", cursor: "pointer" }}
           title="Recipes"
