@@ -11,8 +11,9 @@ import ExerciseList from "./views/ExerciseList";
 import MyPage from "./views/MyPage";
 import Recipes from "./views/Recipes";
 import RegisterSignIn from "./views/RegisterSignIn";
+import RecipeFav from './components/RecipeFav'; // Adjust the import path as needed
 
-const app = () => {
+const App = () => {
   return (
     <Box width="400px" sx={{ width: { xl: "1488px" } }} m="auto">
       <Navbar />
@@ -23,6 +24,7 @@ const app = () => {
         <Route path="/login" element={<RegisterSignIn />} />
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/recipes" element={<Recipes />} />
+        <Route path="/recipes" element={<RecipeFav />} /> {/* Render RecipeFav component */}
         {/* <Route path="/recipes/:id" element={<RecipeDetail />} /> */}
       </Routes>
       <Footer />
@@ -30,4 +32,4 @@ const app = () => {
   );
 };
 
-export default app;
+export default App;
