@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import { Box } from "@mui/material";
 
@@ -12,22 +12,35 @@ import MyPage from "./views/MyPage";
 import Recipes from "./views/Recipes";
 import RegisterSignIn from "./views/RegisterSignIn";
 
-const app = () => {
+const App = () => {
+  const [exercises, setExercises] = useState([]);
+
+  // Function to add exercise to workout plan
+  const onAddToWorkoutPlan = (exercise) => {
+    console.log("hello");
+    setExercises([...exercises, exercise]);
+  };
+  console.log("exercises", exercises);
   return (
     <Box width="400px" sx={{ width: { xl: "1488px" } }} m="auto">
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/exercise/:id" element={<ExerciseDetail />} />
-        <Route path="/exercises" element={<ExerciseList />} />
+        <Route
+          path="/exercise/:id"
+          element={<ExerciseDetail onAddToWorkoutPlan={onAddToWorkoutPlan} />}
+        />
+        <Route
+          path="/exercises"
+          element={<ExerciseList onAddToWorkoutPlan={onAddToWorkoutPlan} />}
+        />
         <Route path="/login" element={<RegisterSignIn />} />
-        <Route path="/mypage" element={<MyPage />} />
+        <Route path="/mypage" element={<MyPage exercises={exercises} />} />
         <Route path="/recipes" element={<Recipes />} />
-        {/* <Route path="/recipes/:id" element={<RecipeDetail />} /> */}
       </Routes>
       <Footer />
     </Box>
   );
 };
 
-export default app;
+export default App;

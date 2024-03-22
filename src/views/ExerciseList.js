@@ -4,9 +4,10 @@ import { Box } from "@mui/material";
 import Exercises from "../components/Exercises";
 import SearchExercises from "../components/SearchExercises";
 
-const ExerciseList = (onAddToWorkoutPlan) => {
+const ExerciseList = ({ onAddToWorkoutPlan }) => {
   const [exercises, setExercises] = useState([]);
   const [bodyPart, setBodyPart] = useState("all");
+  console.log("onAddToWorkoutPlan", onAddToWorkoutPlan);
 
   return (
     <Box>

@@ -20,12 +20,10 @@ const Auth = () => {
       if (isRegistering) {
         // Register
         const res = await axios.post("/register", formData); // Sending registration data to backend
-        console.log(res.data);
         // Handle successful registration (redirect, show success message, etc.)
       } else {
         // Login
         const res = await axios.post("/login", formData); // Sending login data to backend
-        console.log(res.data);
         // Handle successful login (redirect, store user data in state/context, etc.)
       }
     } catch (error) {

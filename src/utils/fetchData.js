@@ -2,7 +2,7 @@ export const exerciseOptions = {
   method: "GET",
   headers: {
     "X-RapidAPI-Host": "exercisedb.p.rapidapi.com",
-    "X-RapidAPI-Key": "177ed6bc56mshdb0536d4d73cf38p1a682fjsn9405fee34da6",
+    "X-RapidAPI-Key": "1a3bd916e2msh13901079fd0fda0p1a323bjsn0ced7992c3bb",
   },
 };
 
@@ -14,15 +14,15 @@ export const youtubeOptions = {
   },
 };
 
-export const recipeOptions = {
-  method: "GET",
-  // url: "https://edamam-recipe-search.p.rapidapi.com/api/recipes/v2",
+// export const recipeOptions = {
+//   method: "GET",
+//   // url: "https://edamam-recipe-search.p.rapidapi.com/api/recipes/v2",
 
-  headers: {
-    "X-RapidAPI-Host": "edamam-recipe-search.p.rapidapi.com",
-    "X-RapidAPI-Key": "177ed6bc56mshdb0536d4d73cf38p1a682fjsn9405fee34da6",
-  },
-};
+//   headers: {
+//     "X-RapidAPI-Host": "edamam-recipe-search.p.rapidapi.com",
+//     "X-RapidAPI-Key": "177ed6bc56mshdb0536d4d73cf38p1a682fjsn9405fee34da6",
+//   },
+// };
 
 export const fetchData = async (baseUrl, options) => {
   try {

@@ -7,18 +7,18 @@ import Detail from "../components/Detail";
 import ExerciseVideos from "../components/ExerciseVideos";
 import SimilarExercises from "../components/SimilarExercises";
 
-const ExerciseDetail = () => {
+const ExerciseDetail = ({ onAddToWorkoutPlan }) => {
   const [exerciseDetail, setExerciseDetail] = useState({});
   const [exerciseVideos, setExerciseVideos] = useState([]);
   const [targetMuscleExercises, setTargetMuscleExercises] = useState([]);
   const [equipmentExercises, setEquipmentExercises] = useState([]);
   const { id } = useParams();
 
-   // Define addExerciseToPlan outside of useEffect
-   const addExerciseToPlan = (exercise) => {
-    // Logic to add exercise to workout plan
-    console.log("Exercise added to workout plan:", exercise);
-  };
+  //  // Define addExerciseToPlan outside of useEffect
+  //  const addExerciseToPlan = (exercise) => {
+  //   // Logic to add exercise to workout plan
+  //   console.log("Exercise added to workout plan:", exercise);
+  // };
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -62,7 +62,7 @@ const ExerciseDetail = () => {
     <Box sx={{ mt: { lg: "96px", xs: "60px" } }}>
       <Detail
         exerciseDetail={exerciseDetail}
-        onAddToWorkoutPlan={addExerciseToPlan}
+        onAddToWorkoutPlan={onAddToWorkoutPlan}
       />
       <ExerciseVideos
         exerciseVideos={exerciseVideos}

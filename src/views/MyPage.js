@@ -9,8 +9,6 @@ import {
   TableRow,
   Paper,
 } from "@mui/material";
-// import AddWorkoutPlan from "../components/AddWorkoutPlan";
-// import ExerciseList from "./ExerciseList";
 
 const Mypage = () => {
   const [workoutPlan, setWorkoutPlan] = useState([]);
@@ -41,8 +39,6 @@ const Mypage = () => {
           </TableBody>
         </Table>
       </TableContainer>
-      {/* <AddWorkoutPlan onAddToWorkoutPlan={addExerciseToPlan} />
-      <ExerciseList addExerciseToPlan={addExerciseToPlan} /> */}
     </Box>
   );
 };
