@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Button, Stack, Typography } from "@mui/material";
-import AddWorkoutPlan from "./AddWorkoutPlan";
 
 const ExerciseCard = ({ exercise, onAddToWorkoutPlan }) => (
   <Link className="exercise-card" to={`/exercise/${exercise.id}`}>
@@ -46,7 +45,6 @@ const ExerciseCard = ({ exercise, onAddToWorkoutPlan }) => (
     <Button
       onClick={(e) => {
         e.preventDefault();
-        console.log("exercise", exercise);
         onAddToWorkoutPlan(exercise); // Pass the exercise object to the onAddToWorkoutPlan function
       }}
     >

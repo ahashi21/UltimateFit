@@ -60,4 +60,26 @@ router.post("/login", async (req, res) => {
   }
 });
 
+// Route to fetch workout plan from the database
+router.get("/workout-plan", async (req, res) => {
+  try {
+    const result = await pool.query("SELECT * FROM workout_plan");
+    res.json(result.rows);
+  } catch (error) {
+    console.error("Error fetching workout plan:", error.message);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+// Route to fetch favorite recipes from the database
+router.get("/favorite-recipes", async (req, res) => {
+  try {
+    const result = await pool.query("SELECT * FROM fav_recipes");
+    res.json(result.rows);
+  } catch (error) {
+    console.error("Error fetching favorite recipes:", error.message);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
 module.exports = router;
