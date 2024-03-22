@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+// MyPage.js
+import React, { useState } from 'react';
+import RecipeFav from '../components/RecipeFav'; // Import RecipeFav component
 import {
   Box,
   Table,
@@ -8,6 +10,18 @@ import {
   TableHead,
   TableRow,
   Paper,
+} from '@mui/material';
+
+const MyPage = () => {
+  const [favoritedRecipes, setFavoritedRecipes] = useState([]); // State to store favorited recipes
+
+  // Function to toggle favorite status of a recipe
+  const toggleFavorite = (recipe) => {
+    if (favoritedRecipes.includes(recipe)) {
+      setFavoritedRecipes(favoritedRecipes.filter((item) => item !== recipe));
+    } else {
+      setFavoritedRecipes([...favoritedRecipes, recipe]);
+    }
 } from "@mui/material";
 
 const Mypage = () => {
@@ -19,21 +33,27 @@ const Mypage = () => {
 
   return (
     <Box>
+      <h1>My Favorite Recipes</h1>
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>Exercise Name</TableCell>
-              <TableCell>Sets</TableCell>
-              <TableCell>Weight</TableCell>
-              <TableCell># Reps</TableCell>
-              <TableCell>Delete</TableCell>
+              <TableCell>Recipe Name</TableCell>
+              <TableCell>Action</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {workoutPlan.map((exercise, index) => (
+            {/* Render RecipeFav component for each favorited recipe */}
+            {favoritedRecipes.map((recipe, index) => (
               <TableRow key={index}>
-                <TableCell>{exercise.name}</TableCell>
+                <TableCell>{recipe.name}</TableCell>
+                <TableCell>
+                  {/* Render RecipeFav component with toggleFavorite function */}
+                  <RecipeFav
+                    isFavorited={favoritedRecipes.includes(recipe)}
+                    toggleFavorite={() => toggleFavorite(recipe)}
+                  />
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
@@ -43,4 +63,4 @@ const Mypage = () => {
   );
 };
 
-export default Mypage;
+export default MyPage;
