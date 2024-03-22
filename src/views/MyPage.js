@@ -1,4 +1,12 @@
+<<<<<<< HEAD
 import React, { useState, useEffect } from "react";
+=======
+import React, { useState } from 'react';
+import RecipeFav from '../components/RecipeFav'; // Import RecipeFav component
+import React, { useState, useEffect } from "react";
+// Your component code goes here
+
+>>>>>>> 86dd096 (Merging the deleted files)
 import {
   Box,
   Button,
@@ -41,6 +49,7 @@ const MyPage = () => {
     } else {
       setFavoritedRecipes([...favoritedRecipes, recipe]);
     }
+<<<<<<< HEAD
   };
 
   // Function to add exercise to workout plan with user input
@@ -56,6 +65,8 @@ const MyPage = () => {
     const updatedPlan = [...workoutPlan];
     updatedPlan[index][key] = Math.max(0, parseInt(value) || 0); // Ensure non-negative integer
     setWorkoutPlan(updatedPlan);
+=======
+>>>>>>> 86dd096 (Merging the deleted files)
   };
 
   return (
