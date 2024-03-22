@@ -43,7 +43,15 @@ const ExerciseCard = ({ exercise, onAddToWorkoutPlan }) => (
     >
       {exercise.name}
     </Typography>
-    <AddWorkoutPlan onClick={onAddToWorkoutPlan} />
+    <Button
+      onClick={(e) => {
+        e.preventDefault();
+        console.log("exercise", exercise);
+        onAddToWorkoutPlan(exercise); // Pass the exercise object to the onAddToWorkoutPlan function
+      }}
+    >
+      Add to Workout Plan
+    </Button>
   </Link>
 );
 

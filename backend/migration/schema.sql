@@ -15,6 +15,7 @@ CREATE TABLE exercises (
   title VARCHAR(255) NOT NULL,
   instructions TEXT,
   gifUrl VARCHAR(255) NOT NULL
+  url VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE recipes (
@@ -23,3 +24,14 @@ CREATE TABLE recipes (
   label VARCHAR(255) NOT NULL,
   url VARCHAR(255) NOT NULL
 );
+
+CREATE TABLE workout_plan
+  id SERIAL PRIMARY KEY NOT NULL,
+  owner_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+  owner_name VARCHAR(255) REFERENCES users(name) ON DELETE CASCADE,
+  exercise_id INTEGER REFERENCES exercise(id) ON DELETE CASCADE,
+  exercise_title VARCHAR(255) REFERENCES exercise(title) ON DELETE CASCADE,
+  exercise_url VARCHAR(255) REFERENCES exercise(url) ON DELETE CASCADE,
+  recipes_id INTEGER REFERENCES recipes(id) ON DELETE CASCADE,
+  recipes_label VARCHAR(255) REFERENCES recipes(label) ON DELETE CASCADE,
+  recipe_url VARCHAR(255) REFERENCES recipe(url) ON DELETE CASCADE,

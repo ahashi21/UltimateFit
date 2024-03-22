@@ -6,7 +6,7 @@ import TargetImage from "../assets/icons/target.png";
 import EquipmentImage from "../assets/icons/equipment.png";
 import AddWorkoutPlan from "./AddWorkoutPlan";
 
-const Detail = ({ exerciseDetail, onAddToWorkoutPlan }) => {
+const Detail = ({ exerciseDetail, onAddToWorkoutPlan, exercise }) => {
   const { bodyPart, gifUrl, name, target, equipment } = exerciseDetail;
 
   const extraDetail = [
@@ -72,7 +72,14 @@ const Detail = ({ exerciseDetail, onAddToWorkoutPlan }) => {
           </Stack>
         ))}
       </Stack>
-      <AddWorkoutPlan onClick={onAddToWorkoutPlan} />
+      <Button
+        onClick={(e) => {
+          e.preventDefault();
+          onAddToWorkoutPlan(exercise); // Pass the exercise object to the onAddToWorkoutPlan function
+        }}
+      >
+        Add to Workout Plan
+      </Button>
     </Stack>
   );
 };

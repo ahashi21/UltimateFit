@@ -22,6 +22,13 @@ const MyPage = () => {
     } else {
       setFavoritedRecipes([...favoritedRecipes, recipe]);
     }
+} from "@mui/material";
+
+const Mypage = () => {
+  const [workoutPlan, setWorkoutPlan] = useState([]);
+
+  const addExerciseToPlan = (exercise) => {
+    setWorkoutPlan([...workoutPlan, exercise]);
   };
 
   return (

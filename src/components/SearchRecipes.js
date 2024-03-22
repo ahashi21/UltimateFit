@@ -1,11 +1,9 @@
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import { Box, Button, Stack, TextField, Typography } from "@mui/material";
 // import { fetchData, recipeOptions } from "../utils/fetchData";
 
 const SearchRecipes = ({ setRecipes }) => {
   const [search, setSearch] = useState("");
-
-  
 
   const handleSearch = async () => {
     if (search) {
@@ -23,12 +21,10 @@ const SearchRecipes = ({ setRecipes }) => {
       try {
         const response = await fetch(url, options);
         const result = await response.json();
-        console.log("result", result);
         setRecipes(result.hits);
       } catch (error) {
         console.error(error);
       }
- 
     }
   };
 
