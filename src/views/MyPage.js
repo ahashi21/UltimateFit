@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import {
   Box,
   Button,
+  List,
+  ListItem,
+  ListItemText,
   Table,
   TableBody,
   TableCell,
@@ -16,6 +19,21 @@ const MyPage = () => {
   const [favoritedRecipes, setFavoritedRecipes] = useState([]); // State to store favorited recipes
   const [workoutPlan, setWorkoutPlan] = useState([]); // State to store workout plan
 
+  useEffect(() => {
+    // Fetch favorite recipes from backend
+    const fetchFavoriteRecipes = async () => {
+      try {
+        const response = await fetch("/favorite-recipes");
+        const data = await response.json();
+        setFavoritedRecipes(data);
+      } catch (error) {
+        console.error("Error fetching favorite recipes:", error);
+      }
+    };
+
+    fetchFavoriteRecipes();
+  }, []);
+
   // Function to toggle favorite status of a recipe
   const toggleFavorite = (recipe) => {
     if (favoritedRecipes.includes(recipe)) {
@@ -27,24 +45,21 @@ const MyPage = () => {
 
   // Function to add exercise to workout plan with user input
   const addExerciseToPlan = (exercise) => {
-    // Assuming exercise object comes with id and name fields
-    const sets = parseInt(prompt("Enter the number of sets:", "0"), 10);
-    const reps = parseInt(prompt("Enter the number of reps:", "0"), 10);
-    const weight = parseInt(prompt("Enter the weight (in lbs):", "0"), 10);
+    setWorkoutPlan([
+      ...workoutPlan,
+      { ...exercise, sets: 0, reps: 0, weight: 0 },
+    ]);
+  };
 
-    // Check if user input is valid
-    if (!isNaN(sets) && !isNaN(reps) && !isNaN(weight)) {
-      setWorkoutPlan([...workoutPlan, { ...exercise, sets, reps, weight }]);
-    } else {
-      alert("Please enter valid numbers for sets, reps, and weight.");
-    }
+  // Function to handle changes in sets, reps, and weight
+  const handleChange = (index, key, value) => {
+    const updatedPlan = [...workoutPlan];
+    updatedPlan[index][key] = Math.max(0, parseInt(value) || 0); // Ensure non-negative integer
+    setWorkoutPlan(updatedPlan);
   };
 
   return (
     <Box>
-      <h1>My Favorite Recipes</h1>
-      {/* Code for displaying favorite recipes */}
-
       <h1>My Workout Plan</h1>
       <TableContainer component={Paper}>
         <Table>
@@ -62,9 +77,33 @@ const MyPage = () => {
             {workoutPlan.map((exercise, index) => (
               <TableRow key={index}>
                 <TableCell>{exercise.name}</TableCell>
-                <TableCell>{exercise.sets}</TableCell>
-                <TableCell>{exercise.reps}</TableCell>
-                <TableCell>{exercise.weight}</TableCell>
+                <TableCell>
+                  <TextField
+                    type="number"
+                    value={exercise.sets}
+                    onChange={(e) =>
+                      handleChange(index, "sets", e.target.value)
+                    }
+                  />
+                </TableCell>
+                <TableCell>
+                  <TextField
+                    type="number"
+                    value={exercise.reps}
+                    onChange={(e) =>
+                      handleChange(index, "reps", e.target.value)
+                    }
+                  />
+                </TableCell>
+                <TableCell>
+                  <TextField
+                    type="number"
+                    value={exercise.weight}
+                    onChange={(e) =>
+                      handleChange(index, "weight", e.target.value)
+                    }
+                  />
+                </TableCell>
                 <TableCell>
                   <Button
                     onClick={() =>
@@ -82,12 +121,15 @@ const MyPage = () => {
         </Table>
       </TableContainer>
 
-      {/* Button to add exercise to workout plan */}
-      <Button
-        onClick={() => addExerciseToPlan({ id: 1, name: "Example Exercise" })}
-      >
-        Add Exercise
-      </Button>
+      <h1>My Favorite Recipes</h1>
+      {/* Display favorite recipes as a list */}
+      <List>
+        {favoritedRecipes.map((recipe, index) => (
+          <ListItem key={index} button onClick={() => toggleFavorite(recipe)}>
+            <ListItemText primary={recipe.label} />
+          </ListItem>
+        ))}
+      </List>
     </Box>
   );
 };
