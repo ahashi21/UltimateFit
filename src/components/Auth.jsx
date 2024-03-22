@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import "../Styles/Auth.css"; // Import your CSS file for styling
+import "../Styles/Auth.css";
 
 const Auth = () => {
   const [isRegistering, setIsRegistering] = useState(false);
@@ -17,15 +17,16 @@ const Auth = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      console.log("Form Data:", formData); // Log form data
       if (isRegistering) {
         // Register
         const res = await axios.post("/register", formData); // Sending registration data to backend
-        console.log(res.data);
+        console.log("Registration Response:", res.data); // Log registration response
         // Handle successful registration (redirect, show success message, etc.)
       } else {
         // Login
         const res = await axios.post("/login", formData); // Sending login data to backend
-        console.log(res.data);
+        console.log("Login Response:", res.data); // Log login response
         // Handle successful login (redirect, store user data in state/context, etc.)
       }
     } catch (error) {
