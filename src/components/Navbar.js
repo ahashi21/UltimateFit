@@ -1,85 +1,52 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Stack } from "@mui/material";
-
 import Logo from "../assets/images/Logo.png";
 
 const Navbar = ({ isLoggedIn, userName }) => (
   <Stack
     direction="row"
-    justifyContent="space-around"
-    sx={{
-      gap: { sm: "123px", xs: "40px" },
-      mt: { sm: "32px", xs: "20px" },
-      justifyContent: "none",
-    }}
-    px="20px"
+    alignItems="center"
+    justifyContent="space-between"
+    px={2}
+    py={1}
+    bgcolor="#f0f0f0"
+    boxShadow="0 2px 5px rgba(0, 0, 0, 0.1)"
   >
     <Link to="/">
       <img
         src={Logo}
         alt="logo"
-        style={{ width: "80px", height: "80px", margin: "0px 20px" }}
+        style={{ width: "80px", height: "80px", marginRight: "20px" }}
       />
     </Link>
-    <Stack
-      direction="row"
-      gap="40px"
-      fontFamily="Alegreya"
-      fontSize="24px"
-      alignItems="flex-end"
-    >
-      <Link
-        to="/"
-        style={{
-          textDecoration: "none",
-          color: "#3A1212",
-          borderBottom: "3px solid #FF2625",
-        }}
-      >
-        Home
-      </Link>
-      <Link
-        to="/exercises"
-        style={{
-          textDecoration: "none",
-          color: "#3A1212",
-        }}
-      >
-        Exercises
-      </Link>
-      <Link
-        to="/recipes"
-        style={{
-          textDecoration: "none",
-          color: "#3A1212",
-        }}
-      >
-        Recipes
-      </Link>
+    <Stack direction="row" gap={2}>
+      <NavLink to="/">Home</NavLink>
+      <NavLink to="/exercises">Exercises</NavLink>
+      <NavLink to="/recipes">Recipes</NavLink>
       {isLoggedIn ? (
-        <Link
-          to="/mypage"
-          style={{
-            textDecoration: "none",
-            color: "#3A1212",
-          }}
-        >
-          My Page ({userName})
-        </Link>
+        <NavLink to="/mypage">My Page ({userName})</NavLink>
       ) : (
-        <Link
-          to="/login"
-          style={{
-            textDecoration: "none",
-            color: "#3A1212",
-          }}
-        >
-          Login
-        </Link>
+        <NavLink to="/login">Login</NavLink>
       )}
     </Stack>
   </Stack>
+);
+
+const NavLink = ({ to, children }) => (
+  <Link
+    to={to}
+    style={{
+      textDecoration: "none",
+      color: "#333",
+      padding: "8px 12px",
+      borderRadius: "4px",
+      transition: "background-color 0.3s",
+    }}
+    activeStyle={{ backgroundColor: "#ddd" }}
+  >
+    {children}
+  </Link>
 );
 
 export default Navbar;
