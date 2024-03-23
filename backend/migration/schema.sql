@@ -29,8 +29,8 @@ CREATE TABLE workout_plan (
   id SERIAL PRIMARY KEY NOT NULL,
   owner_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
   exercise_id INTEGER REFERENCES exercises(id) ON DELETE CASCADE,
-  #_of_sets INTEGER,
-  #_of_reps INTEGER,
+  number_of_sets INTEGER,
+  number_of_reps INTEGER,
   weight INTEGER
 );
 
@@ -39,4 +39,3 @@ CREATE TABLE fav_recipes (
   owner_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
   recipes_id INTEGER REFERENCES recipes(id) ON DELETE CASCADE
 );
-
