@@ -4,8 +4,9 @@ import { Typography, Stack, Button } from "@mui/material";
 import BodyPartImage from "../assets/icons/body-part.png";
 import TargetImage from "../assets/icons/target.png";
 import EquipmentImage from "../assets/icons/equipment.png";
+import AddWorkoutPlan from "./AddWorkoutPlan";
 
-const Detail = ({ exerciseDetail, onAddToWorkoutPlan, exercise }) => {
+const Detail = ({ exerciseDetail, AddToWorkoutPlan, exercise }) => {
   const { bodyPart, gifUrl, name, target, equipment } = exerciseDetail;
 
   const extraDetail = [
@@ -71,14 +72,9 @@ const Detail = ({ exerciseDetail, onAddToWorkoutPlan, exercise }) => {
           </Stack>
         ))}
       </Stack>
-      <Button
-        onClick={(e) => {
-          e.preventDefault();
-          onAddToWorkoutPlan(exercise); // Pass the exercise object to the onAddToWorkoutPlan function
-        }}
-      >
+      <AddWorkoutPlan onClick={AddToWorkoutPlan}>
         Add to Workout Plan
-      </Button>
+      </AddWorkoutPlan>
     </Stack>
   );
 };
