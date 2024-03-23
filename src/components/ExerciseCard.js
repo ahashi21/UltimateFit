@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Button, Stack, Typography } from "@mui/material";
 import AddWorkoutPlan from "./AddWorkoutPlan";
 
-const ExerciseCard = ({ exercise, AddToWorkoutPlan }) => {
+const ExerciseCard = ({ exercise, onAddToWorkoutPlan }) => {
   // const handleAddToWorkoutPlan = () => {
   //   // Make POST request to add exercise to workout plan
   //   fetch("/api/workout_plan", {
@@ -26,7 +26,6 @@ const ExerciseCard = ({ exercise, AddToWorkoutPlan }) => {
   //       console.error(error);
   //     });
   // };
-
   return (
     <div className="exercise-card">
       <Link to={`/exercise/${exercise.id}`}>
@@ -69,9 +68,7 @@ const ExerciseCard = ({ exercise, AddToWorkoutPlan }) => {
           {exercise.name}
         </Typography>
       </Link>
-      <AddWorkoutPlan onClick={AddToWorkoutPlan}>
-        Add to Workout Plan
-      </AddWorkoutPlan>
+      <AddWorkoutPlan exercise={exercise} onAddToWorkoutPlan={onAddToWorkoutPlan} >Add to Workout Plan</AddWorkoutPlan>
     </div>
   );
 };

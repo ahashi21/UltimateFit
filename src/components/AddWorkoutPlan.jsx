@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios"; // Import Axios
 import { Button } from "@mui/material";
 
-const AddWorkoutPlan = ({ onAddToWorkoutPlan }) => {
+const AddWorkoutPlan = ({ onAddToWorkoutPlan, exercise }) => {
   // Function to handle adding exercise to workout plan
   const handleAddToWorkoutPlan = async () => {
     try {
@@ -11,7 +11,7 @@ const AddWorkoutPlan = ({ onAddToWorkoutPlan }) => {
         // Pass any necessary data to the backend here
       });
       // Call the function passed from the parent component
-      onAddToWorkoutPlan();
+      onAddToWorkoutPlan(exercise.id);
       alert("Exercise added to workout plan successfully!");
     } catch (error) {
       console.error("Error adding exercise to workout plan:", error);

@@ -71,4 +71,34 @@ router.get("/favorite-recipes", async (req, res) => {
   }
 });
 
+// Route to add workout plan to the database
+router.post("/workout-plan", async (req, res) => {
+  const { exercise_id, number_of_sets, number_of_reps, weight } = req.body;
+  try {
+    const result = await pool.query(
+      "INSERT INTO workout_plan (owner_id, exercise_id, number_of_sets, number_of_reps, weight) VALUES ($1, $2, $3, $4) RETURNING *",
+      [exercise_id, number_of_sets, number_of_reps, weight]
+    );
+    res.status(201).json(result.rows[0]);
+  } catch (error) {
+    console.error("Error adding workout plan:", error.message);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+// Route to add favorite recipe to the database
+router.post("/favorite-recipes", async (req, res) => {
+  const { owner_id, recipe_id } = req.body;
+  try {
+    const result = await pool.query(
+      "INSERT INTO fav_recipes (owner_id, recipes_id) VALUES ($1, $2) RETURNING *",
+      [owner_id, recipe_id]
+    );
+    res.status(201).json(result.rows[0]);
+  } catch (error) {
+    console.error("Error adding favorite recipe:", error.message);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
 module.exports = router;
