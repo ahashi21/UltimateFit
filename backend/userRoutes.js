@@ -73,11 +73,11 @@ router.get("/favorite-recipes", async (req, res) => {
 
 // Route to add workout plan to the database
 router.post("/workout-plan", async (req, res) => {
-  const { exercise_id, number_of_sets, number_of_reps, weight } = req.body;
+  const { owner_id, exercise_id, number_of_sets, number_of_reps, weight } = req.body;
   try {
     const result = await pool.query(
-      "INSERT INTO workout_plan (owner_id, exercise_id, number_of_sets, number_of_reps, weight) VALUES ($1, $2, $3, $4) RETURNING *",
-      [exercise_id, number_of_sets, number_of_reps, weight]
+      "INSERT INTO workout_plan (owner_id, exercise_id, number_of_sets, number_of_reps, weight) VALUES ($1, $2, $3, $4, $5) RETURNING *",
+      [owner_id, exercise_id, number_of_sets, number_of_reps, weight]
     );
     res.status(201).json(result.rows[0]);
   } catch (error) {
