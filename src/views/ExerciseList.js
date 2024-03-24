@@ -9,6 +9,10 @@ const ExerciseList = ({ onAddToWorkoutPlan }) => {
   const [bodyPart, setBodyPart] = useState("all");
   console.log("onAddToWorkoutPlan", onAddToWorkoutPlan);
 
+  /* const searchButtonStyle = {
+    backgroundColor: "green",
+  };*/
+
   return (
     <Box>
       <SearchExercises
@@ -21,6 +25,7 @@ const ExerciseList = ({ onAddToWorkoutPlan }) => {
         exercises={exercises}
         bodyPart={bodyPart}
         onAddToWorkoutPlan={onAddToWorkoutPlan}
+        buttonStyle={{ backgroundColor: "12AF57" }} // Inline style for the button
       />
     </Box>
   );
