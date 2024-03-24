@@ -22,10 +22,22 @@ const Home = () => {
       alignItems="center"
       height="100vh"
     >
-      <video autoPlay muted loop style={{ width: "100%", marginTop: "-50px" }}>
-        <source src={video1} type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
+  <video 
+  autoPlay 
+  muted 
+  loop 
+  style={{
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    width: "100%",
+    marginTop: "-500px"
+  }}
+>
+  <source src={video1} type="video/mp4" />
+  Your browser does not support the video tag.
+</video>
+
       <Box mt={-80}>
         <Link style={{ marginRight: "10px" }} onClick={handleExerciseClick}>
           <img
