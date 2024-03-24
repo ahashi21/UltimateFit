@@ -42,8 +42,10 @@ const NavLink = ({ to, children }) => (
       padding: "8px 12px",
       borderRadius: "4px",
       transition: "background-color 0.3s",
+      fontWeight: "bold", // Adjust font weight here
     }}
     activeStyle={{ backgroundColor: "#ddd" }}
+    className="nav-link" // Added class for styling
   >
     {children}
   </Link>
