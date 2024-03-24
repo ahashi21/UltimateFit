@@ -138,3 +138,8 @@ body {
     width: 280px;
   }
 }
+
+.nav-link:hover {
+  background-color: #12AF57;
+}
+
