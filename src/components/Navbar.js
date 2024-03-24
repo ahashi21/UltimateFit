@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Stack } from "@mui/material";
+import { Stack, Button } from "@mui/material"; // Import Button from Material-UI
 import Logo from "../assets/images/Logo.png";
 
 const Navbar = ({ isLoggedIn, userName }) => (
@@ -27,7 +27,9 @@ const Navbar = ({ isLoggedIn, userName }) => (
       {isLoggedIn ? (
         <NavLink to="/mypage">My Page ({userName})</NavLink>
       ) : (
-        <NavLink to="/login">Login</NavLink>
+        <Link to="/login">
+          <Button variant="contained" style={{ backgroundColor: "#12AF57", color: "#ffffff" }}>Login</Button>
+        </Link>
       )}
     </Stack>
   </Stack>
@@ -46,6 +48,10 @@ const NavLink = ({ to, children }) => (
     }}
     activeStyle={{ backgroundColor: "#ddd" }}
     className="nav-link" // Added class for styling
+
+    onMouseEnter={(e) => e.currentTarget.style.color = "#ffffff"}
+    // Resetting text color on mouse leave
+    onMouseLeave={(e) => e.currentTarget.style.color = "#000000"}
   >
     {children}
   </Link>
