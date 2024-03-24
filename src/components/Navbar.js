@@ -37,20 +37,22 @@ const Navbar = ({ isLoggedIn, userName }) => (
 
 const NavLink = ({ to, children }) => (
   <Link
-    to={to}
-    style={{
-      textDecoration: "none",
-      color: "#333",
-      padding: "8px 12px",
-      borderRadius: "4px",
-      transition: "background-color 0.3s",
-      fontWeight: "bold", // Adjust font weight here
-    }}
+  to={to}
+  style={{
+    textDecoration: "none",
+    color: "#333",
+    padding: "8px 12px",
+    borderRadius: "4px",
+    transition: "background-color 0.3s",
+    fontWeight: "bold", // Adjust font weight here
+    fontFamily: "Arial, sans-serif", // Adjust font family here
+  }}
     activeStyle={{ backgroundColor: "#ddd" }}
     className="nav-link" // Added class for styling
 
     onMouseEnter={(e) => e.currentTarget.style.color = "#ffffff"}
     // Resetting text color on mouse leave
+    
     onMouseLeave={(e) => e.currentTarget.style.color = "#000000"}
   >
     {children}
