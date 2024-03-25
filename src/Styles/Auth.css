@@ -36,7 +36,7 @@
 
 .auth-container button {
   padding: 10px;
-  background-color: #007bff;
+  background-color: #12AF57;
   color: #fff;
   border: none;
   border-radius: 3px;
@@ -44,7 +44,8 @@
 }
 
 .auth-container button:hover {
-  background-color: #0056b3;
+  background-color: #b7b3b3;
+  color: #12AF57;
 }
 
 .error-message {

@@ -187,6 +187,25 @@ body {
 
 /* HOME PAGE */
 
+.about-us-container {
+ /* display: flex;*/
+  max-width: 800px;
+  padding: 30px;
+  background-color: rgba(17, 120, 34, 0.8);
+  border-radius: 8px;
+  text-align: center;
+  margin-top: auto;
+  margin-left: auto;
+  margin-right: auto;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -200px;
+  font-weight: bold;
+  font-family: Arial, sans-serif; /* Set the font to Arial */
+  color: white;
+}
+
 .video-container {
   position: relative;
 }
