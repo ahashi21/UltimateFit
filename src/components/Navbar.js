@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Stack, Button } from "@mui/material"; // Import Button from Material-UI
+
+import { Stack } from "@mui/material";
+
 import Logo from "../assets/images/Logo.png";
 
 const Navbar = ({ isLoggedIn, userName }) => (
@@ -27,9 +29,9 @@ const Navbar = ({ isLoggedIn, userName }) => (
       {isLoggedIn ? (
         <NavLink to="/mypage">My Page ({userName})</NavLink>
       ) : (
-        <Link to="/login">
-          <Button variant="contained" style={{ backgroundColor: "#12AF57", color: "#ffffff" }}>Login</Button>
-        </Link>
+
+        <NavLink to="/login">Login</NavLink>
+
       )}
     </Stack>
   </Stack>
@@ -37,23 +39,19 @@ const Navbar = ({ isLoggedIn, userName }) => (
 
 const NavLink = ({ to, children }) => (
   <Link
-  to={to}
-  style={{
-    textDecoration: "none",
-    color: "#333",
-    padding: "8px 12px",
-    borderRadius: "4px",
-    transition: "background-color 0.3s",
-    fontWeight: "bold", // Adjust font weight here
-    fontFamily: "Arial, sans-serif", // Adjust font family here
-  }}
+
+    to={to}
+    style={{
+      textDecoration: "none",
+      color: "#333",
+      padding: "8px 12px",
+      borderRadius: "4px",
+      transition: "background-color 0.3s",
+      fontWeight: "bold", // Adjust font weight here
+    }}
     activeStyle={{ backgroundColor: "#ddd" }}
     className="nav-link" // Added class for styling
 
-    onMouseEnter={(e) => e.currentTarget.style.color = "#ffffff"}
-    // Resetting text color on mouse leave
-    
-    onMouseLeave={(e) => e.currentTarget.style.color = "#000000"}
   >
     {children}
   </Link>
