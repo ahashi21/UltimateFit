@@ -14,10 +14,16 @@ import RegisterSignIn from "./views/RegisterSignIn";
 
 const App = () => {
   const [exercises, setExercises] = useState([]);
+  const [recipes, setRecipes] = useState([]);
+
+  //Function to add recipe to favorite recipe
+  const onAddToFavoriteRecipe = (recipe) => {
+    setRecipes([...recipes, recipe]);
+  };
+  console.log("recipes", recipes);
 
   // Function to add exercise to workout plan
   const onAddToWorkoutPlan = (exercise) => {
-    console.log("hello");
     setExercises([...exercises, exercise]);
   };
   console.log("exercises", exercises);
@@ -35,8 +41,14 @@ const App = () => {
           element={<ExerciseList onAddToWorkoutPlan={onAddToWorkoutPlan} />}
         />
         <Route path="/login" element={<RegisterSignIn />} />
-        <Route path="/mypage" element={<MyPage exercises={exercises} />} />
-        <Route path="/recipes" element={<Recipes />} />
+        <Route
+          path="/mypage"
+          element={<MyPage exercises={exercises} recipes={recipes} />}
+        />
+        <Route
+          path="/recipes"
+          element={<Recipes onAddToFavoriteRecipe={onAddToFavoriteRecipe} />}
+        />
       </Routes>
       <Footer />
     </Box>

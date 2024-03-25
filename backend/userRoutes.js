@@ -152,7 +152,7 @@ router.get("/favorite-recipes", async (req, res) => {
 router.post("/favorite-recipes", async (req, res) => {
   const {
     owner_id,
-    recipe_id,
+    recipes_id,
     recipe_label,
     recipe_url,
     recipe_dietLabels,
@@ -160,10 +160,10 @@ router.post("/favorite-recipes", async (req, res) => {
   } = req.body;
   try {
     const result = await pool.query(
-      "INSERT INTO fav_recipes (owner_id, recipes_id, recipe_label, recipe_url, recipe_dietLabels, recipe_calories) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *",
+      "INSERT INTO fav_recipes (owner_id, recipes_id, recipe_label, recipe_url, recipe_dietLabels, recipe_calories) VALUES ($1, $2, $3, $4, $5, $6 ) RETURNING *",
       [
         owner_id,
-        recipe_id,
+        recipes_id,
         recipe_label,
         recipe_url,
         recipe_dietLabels,
