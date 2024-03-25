@@ -69,16 +69,20 @@ const Recipes = ({ recipe, onAddToFavoriteRecipe, OwnerId }) => {
                 <div className="servings">{recipe.recipe.yield} servings</div>
                 <div className="calories">{recipe.recipe.calories} kcal</div>
                 <ul className="nutrients">
-                  {Object.entries(recipe.recipe.totalNutrients).map(
-                    ([key, nutrient]) => (
+                  {Object.entries(recipe.recipe.totalNutrients)
+                    .sort(
+                      ([, nutrientA], [, nutrientB]) =>
+                        nutrientB.quantity - nutrientA.quantity
+                    ) // Sort by quantity in descending order
+                    .slice(0, 10) // Take only the first six entries
+                    .map(([key, nutrient]) => (
                       <li key={key} className={key}>
                         <span>{nutrient.label}</span>
                         <span>
                           {nutrient.quantity.toFixed(2)} {nutrient.unit}
                         </span>
                       </li>
-                    )
-                  )}
+                    ))}
                 </ul>
               </div>
             </div>
