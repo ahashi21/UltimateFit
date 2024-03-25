@@ -2,6 +2,7 @@ import React from "react";
 import { Box, Link } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import video1 from "../assets/video1.mp4";
+import "../App.css"; // Import CSS file for additional styling
 
 const Home = () => {
   const navigate = useNavigate();
@@ -23,7 +24,7 @@ const Home = () => {
       height="100vh"
     >
 
-      <video autoPlay muted loop style={{ width: "100%", marginTop: "-50px" }}>
+      <video autoPlay muted loop className="background-video">
         <source src={video1} type="video/mp4" />
         Your browser does not support the video tag.
       </video>
