@@ -1,3 +1,5 @@
+// frontend/Auth.js
+
 import React, { useState } from "react";
 import axios from "axios";
 import "../Styles/Auth.css";
@@ -9,6 +11,7 @@ const Auth = () => {
     email: "",
     password: "",
   });
+  const [errorMessage, setErrorMessage] = useState(""); // State for error message
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -17,27 +20,29 @@ const Auth = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      console.log("Form Data:", formData); // Log form data
       if (isRegistering) {
-        // Register
-        const res = await axios.post("/register", formData); // Sending registration data to backend
-        console.log("Registration Response:", res.data); // Log registration response
-        // Handle successful registration (redirect, show success message, etc.)
+        const res = await axios.post("/register", formData);
+        console.log("Registration Response:", res.data);
+        alert(res.data.message); // Alert registration message
+        // Redirect to login page after successful registration
+        window.location.href = "/login";
       } else {
-        // Login
-        const res = await axios.post("/login", formData); // Sending login data to backend
-        console.log("Login Response:", res.data); // Log login response
-        // Handle successful login (redirect, store user data in state/context, etc.)
+        const res = await axios.post("/login", formData);
+        console.log("Login Response:", res.data);
+        // Redirect to home page after successful login
+        window.location.href = "/home";
       }
     } catch (error) {
       console.error("Error:", error.response.data);
-      // Handle error (show error message, reset form, etc.)
+      setErrorMessage(error.response.data.error); // Set error message
     }
   };
 
   return (
     <div className="auth-container">
       <h2>{isRegistering ? "Register" : "Sign In"}</h2>
+      {errorMessage && <p className="error-message">{errorMessage}</p>}{" "}
+      {/* Display error message */}
       <form onSubmit={handleSubmit}>
         {isRegistering && (
           <input
