@@ -72,8 +72,10 @@ const Detail = ({ exerciseDetail, onAddToWorkoutPlan }) => {
           </Stack>
         ))}
       </Stack>
-      <AddWorkoutPlan exercise={exerciseDetail}
-      onAddToWorkoutPlan={onAddToWorkoutPlan}  >
+      <AddWorkoutPlan
+        exercise={exerciseDetail}
+        onAddToWorkoutPlan={onAddToWorkoutPlan}
+      >
         Add to Workout Plan
       </AddWorkoutPlan>
     </Stack>

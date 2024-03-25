@@ -14,6 +14,7 @@ import {
   Paper,
   TextField,
 } from "@mui/material";
+import axios from "axios";
 
 const MyPage = () => {
   const [favoritedRecipes, setFavoritedRecipes] = useState([]); // State to store favorited recipes
@@ -23,39 +24,69 @@ const MyPage = () => {
     // Fetch favorite recipes from backend
     const fetchFavoriteRecipes = async () => {
       try {
-        const response = await fetch("/favorite-recipes");
-        const data = await response.json();
-        setFavoritedRecipes(data);
+        const response = await axios.get("/favorite-recipes");
+        setFavoritedRecipes(response.data);
       } catch (error) {
         console.error("Error fetching favorite recipes:", error);
       }
     };
 
+    // Fetch workout plan from backend
+    const fetchWorkoutPlan = async () => {
+      try {
+        const response = await axios.get("/workout-plan");
+        setWorkoutPlan(response.data);
+      } catch (error) {
+        console.error("Error fetching workout plan:", error);
+      }
+    };
+
     fetchFavoriteRecipes();
+    fetchWorkoutPlan();
   }, []);
-
-  // Function to toggle favorite status of a recipe
-  const toggleFavorite = (recipe) => {
-    if (favoritedRecipes.includes(recipe)) {
-      setFavoritedRecipes(favoritedRecipes.filter((item) => item !== recipe));
-    } else {
-      setFavoritedRecipes([...favoritedRecipes, recipe]);
-    }
-  };
-
-  // Function to add exercise to workout plan with user input
-  const addExerciseToPlan = (exercise) => {
-    setWorkoutPlan([
-      ...workoutPlan,
-      { ...exercise, sets: 0, reps: 0, weight: 0 },
-    ]);
-  };
 
   // Function to handle changes in sets, reps, and weight
   const handleChange = (index, key, value) => {
     const updatedPlan = [...workoutPlan];
     updatedPlan[index][key] = Math.max(0, parseInt(value) || 0); // Ensure non-negative integer
     setWorkoutPlan(updatedPlan);
+  };
+
+  // Function to save changes to workout plan
+  const handleSave = async () => {
+    try {
+      await Promise.all(
+        workoutPlan.map(async (exercise) => {
+          const { id, number_of_sets, number_of_reps, weight } = exercise;
+          await axios.put(`/workout-plan/${id}`, {
+            number_of_sets,
+            number_of_reps,
+            weight,
+          });
+        })
+      );
+      alert("Changes saved successfully!");
+    } catch (error) {
+      console.error("Error saving workout plan:", error);
+      alert("Failed to save changes. Please try again later.");
+    }
+  };
+
+  // Function to delete an exercise from workout plan
+  const handleDelete = async (index) => {
+    const updatedPlan = [...workoutPlan];
+    updatedPlan.splice(index, 1); // Remove the exercise at the specified index
+    setWorkoutPlan(updatedPlan);
+
+    try {
+      // Assuming each exercise has a unique ID in the database
+      const deletedExerciseId = workoutPlan[index].id;
+      await axios.delete(`/workout-plan/${deletedExerciseId}`);
+      alert("Exercise deleted successfully!");
+    } catch (error) {
+      console.error("Error deleting exercise:", error);
+      alert("Failed to delete exercise. Please try again later.");
+    }
   };
 
   return (
@@ -66,6 +97,7 @@ const MyPage = () => {
           <TableHead>
             <TableRow>
               <TableCell>Exercise Name</TableCell>
+              <TableCell>Body Part</TableCell>
               <TableCell>Sets</TableCell>
               <TableCell>Reps</TableCell>
               <TableCell>Weight (lbs)</TableCell>
@@ -76,22 +108,25 @@ const MyPage = () => {
             {/* Render each exercise in workout plan */}
             {workoutPlan.map((exercise, index) => (
               <TableRow key={index}>
-                <TableCell>{exercise.name}</TableCell>
+                <TableCell>
+                  <a href={exercise.exercise_url}>{exercise.exercise_name}</a>
+                </TableCell>
+                <TableCell>{exercise.exercise_bodypart}</TableCell>
                 <TableCell>
                   <TextField
                     type="number"
-                    value={exercise.sets}
+                    value={exercise.number_of_sets}
                     onChange={(e) =>
-                      handleChange(index, "sets", e.target.value)
+                      handleChange(index, "number_of_sets", e.target.value)
                     }
                   />
                 </TableCell>
                 <TableCell>
                   <TextField
                     type="number"
-                    value={exercise.reps}
+                    value={exercise.number_of_reps}
                     onChange={(e) =>
-                      handleChange(index, "reps", e.target.value)
+                      handleChange(index, "number_of_reps", e.target.value)
                     }
                   />
                 </TableCell>
@@ -105,15 +140,7 @@ const MyPage = () => {
                   />
                 </TableCell>
                 <TableCell>
-                  <Button
-                    onClick={() =>
-                      setWorkoutPlan(
-                        workoutPlan.filter((item, i) => i !== index)
-                      )
-                    }
-                  >
-                    Delete
-                  </Button>
+                  <Button onClick={() => handleDelete(index)}>Delete</Button>
                 </TableCell>
               </TableRow>
             ))}
@@ -121,14 +148,19 @@ const MyPage = () => {
         </Table>
       </TableContainer>
 
+      {/* Button to save changes */}
+      <Button variant="contained" onClick={handleSave}>
+        Save Changes
+      </Button>
+
       <h1>My Favorite Recipes</h1>
       {/* Display favorite recipes as a list */}
       <List>
-        {favoritedRecipes.map((recipe, index) => (
+        {/* {favoritedRecipes.map((recipe, index) => (
           <ListItem key={index} button onClick={() => toggleFavorite(recipe)}>
-            <ListItemText primary={recipe.label} />
+            <ListItemText primary={recipe.recipe_label} />
           </ListItem>
-        ))}
+        ))} */}
       </List>
     </Box>
   );

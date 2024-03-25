@@ -27,10 +27,9 @@ const Recipes = () => {
       try {
         const response = await fetch(url, options);
         const result = await response.json();
+        console.log("result", result);
         setRecipes(result.hits);
-      } catch (error) {
-        console.error(error);
-      }
+      } catch (error) {}
     };
 
     fetchRecipesData();

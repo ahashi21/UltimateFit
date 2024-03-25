@@ -1,5 +1,4 @@
-DROP TABLE IF EXISTS exercises CASCADE;
-DROP TABLE IF EXISTS recipes CASCADE;
+
 DROP TABLE IF EXISTS users CASCADE;
 DROP TABLE IF EXISTS workout_plan CASCADE;
 DROP TABLE IF EXISTS fav_recipes CASCADE;
@@ -11,24 +10,15 @@ CREATE TABLE users (
   password VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE exercises (
-  id SERIAL PRIMARY KEY NOT NULL,
-  title VARCHAR(255) NOT NULL,
-  instructions TEXT,
-  gifUrl VARCHAR(255) NOT NULL,
-  url VARCHAR(255) NOT NULL
-);
 
-CREATE TABLE recipes (
-  id SERIAL PRIMARY KEY NOT NULL,
-  label VARCHAR(255) NOT NULL,
-  url VARCHAR(255) NOT NULL
-);
 
 CREATE TABLE workout_plan (
   id SERIAL PRIMARY KEY NOT NULL,
   owner_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
-  exercise_id INTEGER REFERENCES exercises(id) ON DELETE CASCADE,
+  exercise_id INTEGER NOT NULL,
+  exercise_name VARCHAR(255) NOT NULL,
+  exercise_bodypart VARCHAR(255) NOT NULL,
+  exercise_url VARCHAR(255) NOT NULL,
   number_of_sets INTEGER,
   number_of_reps INTEGER,
   weight INTEGER
@@ -37,5 +27,10 @@ CREATE TABLE workout_plan (
 CREATE TABLE fav_recipes (
   id SERIAL PRIMARY KEY NOT NULL,
   owner_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
-  recipes_id INTEGER REFERENCES recipes(id) ON DELETE CASCADE
+  recipes_id INTEGER NOT NULL,
+  recipe_label VARCHAR(255) NOT NULL,
+  recipe_url VARCHAR(255) NOT NULL,
+  recipe_dietLabels VARCHAR(255) NOT NULL,
+  recipe_calories INTEGER NOT NULL
+
 );

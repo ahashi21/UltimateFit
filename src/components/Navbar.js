@@ -5,7 +5,7 @@ import { Stack } from "@mui/material";
 
 import Logo from "../assets/images/Logo.png";
 
-const Navbar = ({ isLoggedIn, userName }) => (
+const Navbar = ({ isLoggedIn, userName, handleLogout, OwnerId }) => (
   <Stack
     direction="row"
     alignItems="center"
@@ -29,9 +29,7 @@ const Navbar = ({ isLoggedIn, userName }) => (
       {isLoggedIn ? (
         <NavLink to="/mypage">My Page ({userName})</NavLink>
       ) : (
-
         <NavLink to="/login">Login</NavLink>
-
       )}
     </Stack>
   </Stack>
@@ -39,7 +37,6 @@ const Navbar = ({ isLoggedIn, userName }) => (
 
 const NavLink = ({ to, children }) => (
   <Link
-
     to={to}
     style={{
       textDecoration: "none",
@@ -51,7 +48,6 @@ const NavLink = ({ to, children }) => (
     }}
     activeStyle={{ backgroundColor: "#ddd" }}
     className="nav-link" // Added class for styling
-
   >
     {children}
   </Link>

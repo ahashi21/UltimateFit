@@ -1,7 +1,7 @@
 import React from "react";
 import Auth from "../components/Auth"; // Import the Auth component
 
-const RegisterSignIn = () => {
+const RegisterSignIn = (userName, OwnerId) => {
   return (
     <div>
       <h1>UltimateFit</h1>
