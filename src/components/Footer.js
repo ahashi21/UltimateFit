@@ -37,7 +37,7 @@ const Footer = () => (
     <Typography
       variant="h5"
       sx={{ fontSize: { lg: "28px", xs: "20px" } }}
-      mt="16px" // Adjust the margin top
+      mt="10px" // Adjust the margin top
       textAlign="center"
       pb="40px"
     >

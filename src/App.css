@@ -173,10 +173,9 @@ body {
 }
 
 
-
+/* Home */
 
 .background-video {
-  position: fixed;
   top: 10%; /* Adjust as needed to position the video vertically */
   left: 0;
   width: 100%; /* Adjust as needed to control the width of the video */
@@ -188,24 +187,22 @@ body {
 /* HOME PAGE */
 
 .about-us-container {
- /* display: flex;*/
-  max-width: 800px;
-  padding: 30px;
-  background-color: rgba(17, 120, 34, 0.8);
-  border-radius: 8px;
-  text-align: center;
-  margin-top: auto;
-  margin-left: auto;
-  margin-right: auto;
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -200px;
-  font-weight: bold;
-  font-family: Arial, sans-serif; /* Set the font to Arial */
-  color: white;
-}
-
+  /* display: flex;*/
+   max-width: 800px;
+   padding: 30px;
+   background-color: rgba(17, 120, 34, 0.8);
+   border-radius: 8px;
+   text-align: center;
+   margin-top: auto;
+   margin-left: auto;
+   margin-right: auto;
+   left: 0;
+   right: 0;
+   bottom: 20px;
+   font-weight: bold;
+   font-family: Arial, sans-serif; /* Set the font to Arial */
+   color: white;
+ }
 .video-container {
   position: relative;
 }
@@ -216,9 +213,13 @@ body {
 
 .fixed-buttons-container {
   position: fixed;
-  bottom: 120px; /* Adjust as needed */
+  bottom: 20px; /* Adjust as needed */
   left: 50%;
   transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  max-width: 1000px; /* Adjust as needed */
+  width: 90%; /* Adjust as needed */
 }
 
 
