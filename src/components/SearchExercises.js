@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Box, Button, Stack, TextField, Typography } from "@mui/material";
-
 import { exerciseOptions, fetchData } from "../utils/fetchData";
 import HorizontalScrollbar from "./HorizontalScrollbar";
 
 const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
   const [search, setSearch] = useState("");
   const [bodyParts, setBodyParts] = useState([]);
+  const [buttonHovered, setButtonHovered] = useState(false);
 
   useEffect(() => {
     const fetchExercisesData = async () => {
@@ -67,7 +67,7 @@ const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
         <Button
           className="search-btn"
           sx={{
-            bgcolor: "#FF2625",
+            bgcolor: buttonHovered ? "#12af57" : "#12AF57",
             color: "#fff",
             textTransform: "none",
             width: { lg: "173px", xs: "80px" },
@@ -76,6 +76,8 @@ const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
             right: "0px",
             fontSize: { lg: "20px", xs: "14px" },
           }}
+          onMouseEnter={() => setButtonHovered(true)}
+          onMouseLeave={() => setButtonHovered(false)}
           onClick={handleSearch}
         >
           Search

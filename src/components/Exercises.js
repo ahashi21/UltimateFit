@@ -53,6 +53,12 @@ const Exercises = ({
 
   if (!currentExercises.length) return <Loader />;
 
+  // Chunking the exercises array into groups of three
+  const chunkedExercises = [];
+  for (let i = 0; i < currentExercises.length; i += 3) {
+    chunkedExercises.push(currentExercises.slice(i, i + 3));
+  }
+
   return (
     <Box id="exercises" sx={{ mt: { lg: "109px" } }} mt="50px" p="20px">
       <Typography
@@ -69,12 +75,17 @@ const Exercises = ({
         flexWrap="wrap"
         justifyContent="center"
       >
-        {currentExercises.map((exercise, idx) => (
-          <ExerciseCard
-            key={idx}
-            exercise={exercise}
-            onAddToWorkoutPlan={onAddToWorkoutPlan}
-          />
+        {/* Mapping over chunked exercises */}
+        {chunkedExercises.map((chunk, index) => (
+          <Stack key={index} direction="row" spacing={2}>
+            {chunk.map((exercise, idx) => (
+              <ExerciseCard
+                key={idx}
+                exercise={exercise}
+                onAddToWorkoutPlan={onAddToWorkoutPlan}
+              />
+            ))}
+          </Stack>
         ))}
       </Stack>
       <Stack sx={{ mt: { lg: "114px", xs: "70px" } }} alignItems="center">

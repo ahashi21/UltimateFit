@@ -2,7 +2,9 @@ const { Pool } = require("pg");
 
 /// Connecting to PostgreSQL
 
-const pool = new Pool();
+const pool = new Pool({
+  database: 'labber',
+  password: 'labber',});
 
 /// Users
 
@@ -81,6 +83,5 @@ module.exports = {
   getUserWithEmail,
   getUserWithId,
   addUser,
+  pool,
 };
-
-//getRecipesWithId, getrecipeswithlabel ,  , get
