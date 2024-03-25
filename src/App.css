@@ -222,6 +222,28 @@ body {
   width: 90%; /* Adjust as needed */
 }
 
+/* This is for the Exercise Page */
+
+/* Define a class with hover effect */
+.buttonHoverEffect:hover {
+  background-color: #fdfdfd; /* Opposite color */
+}
+
+/* Optionally, you can define the initial background color */
+.buttonHoverEffect {
+  background-color: #12af57; /* Initial color */
+
+}
+
+.searchButton:hover {
+  background-color: #f1f1f1; /* Opposite color */
+  color: #000000; /* Green text color */
+}
+
+.searchButton {
+  background-color: #12af57; /* Initial color */
+  color: #fff; /* White text color */
+}
 
 /* Recipes.css */
 
