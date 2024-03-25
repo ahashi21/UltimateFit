@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Box } from "@mui/material";
 import SearchRecipes from "../components/SearchRecipes";
 import RecipeFav from "../components/RecipeFav"; // Import RecipeFav component
+import "../App.css"; // Assuming you have a CSS file for styling
 
 const Recipes = () => {
   const [recipes, setRecipes] = useState([]);

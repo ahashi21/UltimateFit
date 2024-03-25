@@ -139,16 +139,146 @@ body {
   }
 }
 
-.nav-link:hover {
-  background-color: #12AF57;
+/* NAVBAR/HEADER */
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background-color: #f0f0f0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
+
+.navbar img {
+  width: 80px;
+  height: 80px;
+  margin-right: 20px;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: #333;
+  padding: 8px 12px;
+  border-radius: 4px;
+  transition: background-color 0.3s, color 0.3s; /* Add color transition */
+  font-weight: bold;
+  font-family: Arial, sans-serif;
+}
+
+.nav-link:hover {
+  background-color: #12af57;
+  color: #ffffff; /* Change text color on hover */
+}
+
+
+
 
 .background-video {
   position: fixed;
-  top: 0%; /* Adjust as needed to position the video vertically */
+  top: 10%; /* Adjust as needed to position the video vertically */
   left: 0;
   width: 100%; /* Adjust as needed to control the width of the video */
   height: 80%; /* Adjust as needed to control the height of the video */
   object-fit: cover; /* Ensures the video fills the entire container */
   z-index: -1;
+}
+
+/* HOME PAGE */
+
+.video-container {
+  position: relative;
+}
+
+.background-video {
+  width: 100%;
+}
+
+.fixed-buttons-container {
+  position: fixed;
+  bottom: 120px; /* Adjust as needed */
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+
+/* Recipes.css */
+
+/* Container for individual recipes */
+.recipe-box {
+  display: flex;
+  margin-bottom: 30px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(6, 141, 37, 0.1);
+}
+
+/* Recipe image */
+.recipe-image img {
+  width: 200px;
+  height: 150px;
+  object-fit: cover;
+}
+
+/* Recipe details */
+.recipe-details {
+  padding: 20px;
+}
+
+/* Recipe title */
+.recipe-title {
+  margin-bottom: 10px;
+}
+
+.recipe-title a {
+  color: #333;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* Recipe labels (diet and health labels) */
+.recipe-labels span {
+  display: inline-block;
+  margin-right: 5px;
+  background-color: #f0f0f0;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 14px;
+  color: #666666;
+}
+
+/* Recipe nutrition */
+.recipe-nutrition {
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.servings,
+.calories {
+  margin-bottom: 5px;
+  color: hsl(124, 86%, 36%);
+}
+
+.nutrients li {
+  margin-bottom: 3px;
+}
+
+.nutrients li span:first-child {
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+/* Favorite button */
+.recipe-favorite-btn {
+  border: none;
+  background-color: #12af57; /* Green color for favorite button */
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+
 }
