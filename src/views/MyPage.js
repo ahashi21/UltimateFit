@@ -156,11 +156,11 @@ const MyPage = () => {
       <h1>My Favorite Recipes</h1>
       {/* Display favorite recipes as a list */}
       <List>
-        {/* {favoritedRecipes.map((recipe, index) => (
-          <ListItem key={index} button onClick={() => toggleFavorite(recipe)}>
+        {favoritedRecipes.map((recipe, index) => (
+          <ListItem key={index}>
             <ListItemText primary={recipe.recipe_label} />
           </ListItem>
-        ))} */}
+        ))}
       </List>
     </Box>
   );

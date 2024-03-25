@@ -8,10 +8,6 @@ const ExerciseList = ({ onAddToWorkoutPlan, OwnerId }) => {
   const [exercises, setExercises] = useState([]);
   const [bodyPart, setBodyPart] = useState("all");
 
-  /* const searchButtonStyle = {
-    backgroundColor: "green",
-  };*/
-
   return (
     <Box>
       <SearchExercises

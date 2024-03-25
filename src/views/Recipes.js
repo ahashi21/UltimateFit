@@ -4,12 +4,9 @@ import SearchRecipes from "../components/SearchRecipes";
 import RecipeFav from "../components/RecipeFav"; // Import RecipeFav component
 import "../App.css"; // Assuming you have a CSS file for styling
 
-const Recipes = () => {
+const Recipes = ({ recipe, onAddToFavoriteRecipe, OwnerId }) => {
   const [recipes, setRecipes] = useState([]);
   const [category, setCategory] = useState("all");
-
-  // State to track favorite recipes
-  const [favoriteRecipes, setFavoriteRecipes] = useState([]);
 
   useEffect(() => {
     const fetchRecipesData = async () => {
@@ -36,15 +33,6 @@ const Recipes = () => {
     fetchRecipesData();
   }, []);
 
-  // Function to toggle favorite status of a recipe
-  const toggleFavorite = (recipe) => {
-    if (favoriteRecipes.includes(recipe)) {
-      setFavoriteRecipes(favoriteRecipes.filter((item) => item !== recipe));
-    } else {
-      setFavoriteRecipes([...favoriteRecipes, recipe]);
-    }
-  };
-
   return (
     <>
       <Box>
@@ -65,9 +53,11 @@ const Recipes = () => {
               </h3>
               {/* Render RecipeFav component for each recipe */}
               <RecipeFav
-                isFavorited={favoriteRecipes.includes(recipe)}
-                toggleFavorite={() => toggleFavorite(recipe)}
-              />
+                recipe={recipe}
+                onAddToFavoriteRecipe={onAddToFavoriteRecipe}
+              >
+                Add to Favorite Recipes
+              </RecipeFav>
               <div className="recipe-labels">
                 {recipe.recipe.dietLabels
                   .concat(recipe.recipe.healthLabels)

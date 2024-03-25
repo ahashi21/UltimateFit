@@ -50,7 +50,7 @@ const ExerciseCard = ({ exercise, onAddToWorkoutPlan }) => {
         exercise={exercise}
         onAddToWorkoutPlan={onAddToWorkoutPlan}
       >
-        Add to Workout Plan
+        {/* Add to Workout Plan */}
       </AddWorkoutPlan>
     </div>
   );
