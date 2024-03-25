@@ -4,8 +4,9 @@ import { Stack, Button } from "@mui/material";
 import Logo from "../assets/images/Logo.png";
 import "../App.css"; // Import CSS file for Navbar styling
 
-const Navbar = ({ isLoggedIn, userName }) => (
-  <div className="navbar-container"> {/* Wrap Stack in a div for positioning */}
+const Navbar = ({ isAuthenticated, userName, handleLogout }) => (
+  <div className="navbar-container">
+    {/* Wrap Stack in a div for positioning */}
     <Stack
       direction="row"
       alignItems="center"
@@ -27,11 +28,28 @@ const Navbar = ({ isLoggedIn, userName }) => (
         <NavLink to="/">Home</NavLink>
         <NavLink to="/exercises">Exercises</NavLink>
         <NavLink to="/recipes">Recipes</NavLink>
-        {isLoggedIn ? (
-          <NavLink to="/mypage">My Page ({userName})</NavLink>
+        {isAuthenticated ? (
+          <>
+            <NavLink to="/mypage">
+              My Page
+              {/* ({userName}) */}
+            </NavLink>
+            <Button
+              variant="contained"
+              style={{ backgroundColor: "#ff0000", color: "#ffffff" }}
+              onClick={handleLogout}
+            >
+              Logout
+            </Button>
+          </>
         ) : (
           <Link to="/login">
-            <Button variant="contained" style={{ backgroundColor: "#12AF57", color: "#ffffff" }}>Login</Button>
+            <Button
+              variant="contained"
+              style={{ backgroundColor: "#12AF57", color: "#ffffff" }}
+            >
+              Login
+            </Button>
           </Link>
         )}
       </Stack>
@@ -53,8 +71,8 @@ const NavLink = ({ to, children }) => (
     }}
     activeStyle={{ backgroundColor: "#ddd" }}
     className="nav-link"
-    onMouseEnter={(e) => e.currentTarget.style.color = "#ffffff"}
-    onMouseLeave={(e) => e.currentTarget.style.color = "#000000"}
+    onMouseEnter={(e) => (e.currentTarget.style.color = "#ffffff")}
+    onMouseLeave={(e) => (e.currentTarget.style.color = "#000000")}
   >
     {children}
   </Link>

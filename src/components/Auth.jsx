@@ -1,11 +1,13 @@
 // frontend/Auth.js
 
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../Styles/Auth.css";
 
-const Auth = () => {
+const Auth = ({ handleLogin }) => {
   const [isRegistering, setIsRegistering] = useState(false);
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -29,8 +31,11 @@ const Auth = () => {
       } else {
         const res = await axios.post("/login", formData);
         console.log("Login Response:", res.data);
+        // Call handleLogin upon successful login
+        handleLogin();
         // Redirect to home page after successful login
-        window.location.href = "/home";
+        // window.location.href = "/";
+        navigate("/");
       }
     } catch (error) {
       console.error("Error:", error.response.data);
