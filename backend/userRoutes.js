@@ -177,4 +177,17 @@ router.post("/favorite-recipes", async (req, res) => {
   }
 });
 
+// Route to delete a recipe from favorite recipes
+router.delete("/favorite-recipes/:id", async (req, res) => {
+  const id = req.params.id; // Exercise ID
+
+  try {
+    await pool.query("DELETE FROM fav_recipes WHERE id = $1", [id]);
+    res.status(200).json({ message: "Recipe deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting recipe from favorite recipes:", error.message);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
 module.exports = router;
