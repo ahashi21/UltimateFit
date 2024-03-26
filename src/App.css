@@ -245,6 +245,29 @@ body {
   color: #fff; /* White text color */
 }
 
+/* this is for the search button of Recipe */
+
+.search-button {
+  background-color: #12af57; /* Green */
+  border: none;
+  color: white; /* Text color */
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+.search-button:hover {
+  background-color: white; /* White */
+  color: #12af57; /* Green */
+}
+
+
+
 /* Recipes.css */
 
 /* Container for individual recipes */
