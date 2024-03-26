@@ -1,12 +1,18 @@
 import React from "react";
 import Auth from "../components/Auth"; // Import the Auth component
 
-const RegisterSignIn = (userName, OwnerId) => {
+const RegisterSignIn = ({ isAuthenticated, handleLogin }) => {
   return (
     <div>
       <h1>UltimateFit</h1>
-      <p>Please register or sign in to access your page</p>
-      <Auth /> {/* Include the Auth component here */}
+      {!isAuthenticated ? (
+        <div>
+          <p>Please register or sign in to access your page</p>
+          <Auth handleLogin={handleLogin} />
+        </div>
+      ) : (
+        <p>You are already logged in!</p>
+      )}
     </div>
   );
 };

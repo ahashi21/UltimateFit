@@ -27,7 +27,7 @@ CREATE TABLE workout_plan (
 CREATE TABLE fav_recipes (
   id SERIAL PRIMARY KEY NOT NULL,
   owner_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
-  
+  recipes_id VARCHAR(255) NOT NULL,
   recipe_label VARCHAR(255) NOT NULL,
   recipe_url VARCHAR(255) NOT NULL,
   recipe_dietLabels VARCHAR(255) NOT NULL,

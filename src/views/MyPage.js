@@ -73,7 +73,7 @@ const MyPage = () => {
   };
 
   // Function to delete an exercise from workout plan
-  const handleDelete = async (index) => {
+  const handleExerciseDelete = async (index) => {
     const updatedPlan = [...workoutPlan];
     updatedPlan.splice(index, 1); // Remove the exercise at the specified index
     setWorkoutPlan(updatedPlan);
@@ -86,6 +86,23 @@ const MyPage = () => {
     } catch (error) {
       console.error("Error deleting exercise:", error);
       alert("Failed to delete exercise. Please try again later.");
+    }
+  };
+
+  // Function to delete a recipe from favorite recipes
+  const handleRecipeDelete = async (index) => {
+    const updatedFav = [...favoritedRecipes];
+    updatedFav.splice(index, 1); // Remove the exercise at the specified index
+    setFavoritedRecipes(updatedFav);
+
+    try {
+      // Assuming each recipe has a unique ID in the database
+      const deletedRecipeId = favoritedRecipes[index].id;
+      await axios.delete(`/favorite-recipes/${deletedRecipeId}`);
+      alert("Recipe deleted successfully!");
+    } catch (error) {
+      console.error("Error deleting Recipe:", error);
+      alert("Failed to delete recipe. Please try again later.");
     }
   };
 
@@ -140,7 +157,9 @@ const MyPage = () => {
                   />
                 </TableCell>
                 <TableCell>
-                  <Button onClick={() => handleDelete(index)}>Delete</Button>
+                  <Button onClick={() => handleExerciseDelete(index)}>
+                    Delete
+                  </Button>
                 </TableCell>
               </TableRow>
             ))}
@@ -156,9 +175,11 @@ const MyPage = () => {
       <h1>My Favorite Recipes</h1>
       {/* Display favorite recipes as a list */}
       <List>
+        {console.log("favoritedRecipes", favoritedRecipes)}
         {favoritedRecipes.map((recipe, index) => (
           <ListItem key={index}>
             <ListItemText primary={recipe.recipe_label} />
+            <Button onClick={() => handleRecipeDelete(index)}>Delete</Button>
           </ListItem>
         ))}
       </List>
