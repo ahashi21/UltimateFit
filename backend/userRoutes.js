@@ -91,7 +91,10 @@ router.get("/user", async (req, res) => {
 // Route to fetch workout plan from the database
 router.get("/workout-plan", async (req, res) => {
   try {
-    const result = await pool.query("SELECT * FROM workout_plan");
+    const result = await pool.query(
+      "SELECT * FROM workout_plan WHERE owner_id = $1",
+      [req.query.owner_id]
+    );
     res.json(result.rows);
   } catch (error) {
     console.error("Error fetching workout plan:", error.message);
@@ -189,10 +192,12 @@ router.get("/workout-plan/:id", async (req, res) => {
 
 // RECIPES
 
-// Route to fetch favorite recipes from the database
 router.get("/favorite-recipes", async (req, res) => {
   try {
-    const result = await pool.query("SELECT * FROM fav_recipes");
+    const result = await pool.query(
+      "SELECT * FROM fav_recipes WHERE owner_id = $1",
+      [req.query.owner_id]
+    );
     res.json(result.rows);
   } catch (error) {
     console.error("Error fetching favorite recipes:", error.message);

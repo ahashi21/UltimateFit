@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../Styles/Auth.css";
 
-const Auth = ({ handleLogin }) => {
+const Auth = ({ handleLogin, setUser }) => {
   const [isRegistering, setIsRegistering] = useState(false);
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -30,6 +30,7 @@ const Auth = ({ handleLogin }) => {
         navigate("/login");
       } else {
         const res = await axios.post("/login", formData);
+        setUser(res.data.user);
         console.log("Login Response:", res.data);
         // Call handleLogin upon successful login
         handleLogin();

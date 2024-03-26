@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect} from "react";
 import axios from "axios";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import { Box } from "@mui/material";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
@@ -16,12 +16,13 @@ const App = () => {
   const [recipes, setRecipes] = useState([]);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Fetch user data from the backend or local storage upon component mount
     const fetchUserData = async () => {
       try {
-        const response = await axios.get("/user");
+        const response = await axios.get("/login");
         setUser(response.data.user);
         setIsAuthenticated(response.data.isAuthenticated);
       } catch (error) {
@@ -44,6 +45,7 @@ const App = () => {
     // Perform logout actions, such as clearing user data and resetting authentication status
     setIsAuthenticated(false);
     // Additional logout logic can be added here, such as redirecting to the login page or clearing local storage
+    navigate("/");
   };
 
   // Function to add recipe to favorite recipe
@@ -61,6 +63,7 @@ const App = () => {
       <Navbar
         isAuthenticated={isAuthenticated}
         handleLogout={handleLogout}
+        setUser={setUser}
         user={user}
       />
       <Routes>
@@ -87,7 +90,9 @@ const App = () => {
         />
         <Route
           path="/login"
-          element={<Auth handleLogin={handleLogin} user={user} />}
+          element={
+            <Auth handleLogin={handleLogin} setUser={setUser} user={user} />
+          }
         />
         <Route
           path="/mypage"

@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Button } from "@mui/material";
+import userEvent from "@testing-library/user-event";
 
-const AddWorkoutPlan = ({ exercise, OwnerId, onAddToWorkoutPlan }) => {
+const AddWorkoutPlan = ({ exercise, user, onAddToWorkoutPlan }) => {
   const [isExerciseAdded, setIsExerciseAdded] = useState(false);
 
   useEffect(() => {
@@ -33,7 +34,7 @@ const AddWorkoutPlan = ({ exercise, OwnerId, onAddToWorkoutPlan }) => {
         return;
       }
       const requestData = {
-        owner_id: OwnerId,
+        owner_id: user.id,
         exercise_id: exercise.id,
         exercise_name: exercise.name,
         exercise_bodypart: exercise.bodyPart,

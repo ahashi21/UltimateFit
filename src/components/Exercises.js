@@ -12,7 +12,7 @@ const Exercises = ({
   bodyPart,
   onAddToWorkoutPlan,
   isAuthenticated,
-  user
+  user,
 }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [exercisesPerPage] = useState(6);
