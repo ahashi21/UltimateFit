@@ -1,68 +1,109 @@
-import React, { useState } from "react";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { Route, Routes } from "react-router-dom";
 import { Box } from "@mui/material";
-
-import "./App.css";
-import Home from "./views/Home";
-import ExerciseDetail from "./views/ExerciseDetail";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import ExerciseDetail from "./views/ExerciseDetail";
 import ExerciseList from "./views/ExerciseList";
 import MyPage from "./views/MyPage";
 import Recipes from "./views/Recipes";
-import RegisterSignIn from "./views/RegisterSignIn";
+import Home from "./views/Home";
+import Auth from "./components/Auth";
 
 const App = () => {
   const [exercises, setExercises] = useState([]);
   const [recipes, setRecipes] = useState([]);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    // Fetch user data from the backend or local storage upon component mount
+    const fetchUserData = async () => {
+      try {
+        const response = await axios.get("/user");
+        setUser(response.data.user);
+        setIsAuthenticated(response.data.isAuthenticated);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+        // Handle error here, such as setting user to null
+        setUser(null);
+      }
+    };
+
+    fetchUserData();
+  }, []);
 
   // Function to handle login
   const handleLogin = () => {
     setIsAuthenticated(true);
   };
 
-  //Function to add recipe to favorite recipe
+  // Function to handle logout
+  const handleLogout = () => {
+    // Perform logout actions, such as clearing user data and resetting authentication status
+    setIsAuthenticated(false);
+    // Additional logout logic can be added here, such as redirecting to the login page or clearing local storage
+  };
+
+  // Function to add recipe to favorite recipe
   const onAddToFavoriteRecipe = (recipe) => {
     setRecipes([...recipes, recipe]);
   };
-  console.log("recipes", recipes);
 
   // Function to add exercise to workout plan
   const onAddToWorkoutPlan = (exercise) => {
     setExercises([...exercises, exercise]);
   };
-  console.log("exercises", exercises);
-
+  console.log("User:", user); // Log the user object
   return (
     <Box width="400px" sx={{ width: { xl: "1488px" } }} m="auto">
-      <Navbar isAuthenticated={isAuthenticated} />
+      <Navbar
+        isAuthenticated={isAuthenticated}
+        handleLogout={handleLogout}
+        user={user}
+      />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route
           path="/exercise/:id"
-          element={<ExerciseDetail onAddToWorkoutPlan={onAddToWorkoutPlan} />}
-        />
-        <Route
-          path="/exercises"
-          element={<ExerciseList onAddToWorkoutPlan={onAddToWorkoutPlan} />}
-        />
-        <Route
-          path="/login"
           element={
-            <RegisterSignIn
+            <ExerciseDetail
+              onAddToWorkoutPlan={onAddToWorkoutPlan}
               isAuthenticated={isAuthenticated}
-              handleLogin={handleLogin}
+              user={user}
             />
           }
         />
         <Route
+          path="/exercises"
+          element={
+            <ExerciseList
+              onAddToWorkoutPlan={onAddToWorkoutPlan}
+              isAuthenticated={isAuthenticated}
+              user={user}
+            />
+          }
+        />
+        <Route
+          path="/login"
+          element={<Auth handleLogin={handleLogin} user={user} />}
+        />
+        <Route
           path="/mypage"
-          element={<MyPage exercises={exercises} recipes={recipes} />}
+          element={
+            <MyPage exercises={exercises} recipes={recipes} user={user} />
+          }
         />
         <Route
           path="/recipes"
-          element={<Recipes onAddToFavoriteRecipe={onAddToFavoriteRecipe} />}
+          element={
+            <Recipes
+              onAddToFavoriteRecipe={onAddToFavoriteRecipe}
+              isAuthenticated={isAuthenticated}
+              user={user}
+            />
+          }
         />
       </Routes>
       <Footer />

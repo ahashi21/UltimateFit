@@ -4,7 +4,7 @@ import SearchRecipes from "../components/SearchRecipes";
 import RecipeFav from "../components/RecipeFav"; // Import RecipeFav component
 import "../App.css"; // Assuming you have a CSS file for styling
 
-const Recipes = ({ recipe, onAddToFavoriteRecipe, OwnerId }) => {
+const Recipes = ({ recipe, onAddToFavoriteRecipe, user, isAuthenticated }) => {
   const [recipes, setRecipes] = useState([]);
   const [category, setCategory] = useState("all");
 
@@ -52,13 +52,17 @@ const Recipes = ({ recipe, onAddToFavoriteRecipe, OwnerId }) => {
               <h3 className="recipe-title">
                 <a href={recipe.recipe.url}>{recipe.recipe.label}</a>
               </h3>
-              {/* Render RecipeFav component for each recipe */}
-              <RecipeFav
-                recipe={recipe}
-                onAddToFavoriteRecipe={onAddToFavoriteRecipe}
-              >
-                Add to Favorite Recipes
-              </RecipeFav>
+              {isAuthenticated && ( // Corrected the conditional rendering syntax
+                <RecipeFav
+                  recipe={recipe}
+                  onAddToFavoriteRecipe={onAddToFavoriteRecipe}
+                  isAuthenticated={isAuthenticated}
+                  user={user}
+                >
+                  Add to Favorite Recipes
+                </RecipeFav>
+              )}
+
               <div className="recipe-labels">
                 {recipe.recipe.dietLabels
                   .concat(recipe.recipe.healthLabels)

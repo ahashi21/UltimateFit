@@ -11,6 +11,8 @@ const Exercises = ({
   setExercises,
   bodyPart,
   onAddToWorkoutPlan,
+  isAuthenticated,
+  user
 }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [exercisesPerPage] = useState(6);
@@ -83,6 +85,8 @@ const Exercises = ({
                 key={idx}
                 exercise={exercise}
                 onAddToWorkoutPlan={onAddToWorkoutPlan}
+                isAuthenticated={isAuthenticated}
+                user={user}
               />
             ))}
           </Stack>

@@ -62,6 +62,32 @@ router.post("/login", async (req, res) => {
   }
 });
 
+// Route to fetch user data
+router.get("/user", async (req, res) => {
+  try {
+    // Check if user is authenticated
+    if (req.isAuthenticated()) {
+      // If authenticated, fetch user data from the database
+      const { id, name, email } = req.user; // Assuming user object has id, name, and email properties
+      res.status(200).json({
+        isAuthenticated: true,
+        user: { id, name, email }, // Return only necessary user data
+      });
+    } else {
+      // If not authenticated, return null for the user
+      res.status(200).json({
+        isAuthenticated: false,
+        user: null,
+      });
+    }
+  } catch (error) {
+    console.error("Error fetching user data:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+// WORKOUT PLAN
+
 // Route to fetch workout plan from the database
 router.get("/workout-plan", async (req, res) => {
   try {
@@ -137,6 +163,32 @@ router.delete("/workout-plan/:id", async (req, res) => {
   }
 });
 
+// Route to fetch a workout plan by ID
+router.get("/workout-plan/:id", async (req, res) => {
+  const exerciseId = req.params.id; // Extract the exercise ID from the request parameters
+
+  try {
+    // Query the database to fetch the workout plan with the specified ID
+    const result = await pool.query(
+      "SELECT * FROM workout_plan WHERE id = $1",
+      [exerciseId]
+    );
+
+    // Check if a workout plan with the specified ID was found
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: "Workout plan not found" }); // Return a 404 error if not found
+    }
+
+    // If found, return the workout plan in the response
+    res.json(result.rows[0]);
+  } catch (error) {
+    console.error("Error fetching workout plan by ID:", error.message);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+// RECIPES
+
 // Route to fetch favorite recipes from the database
 router.get("/favorite-recipes", async (req, res) => {
   try {
@@ -185,7 +237,10 @@ router.delete("/favorite-recipes/:id", async (req, res) => {
     await pool.query("DELETE FROM fav_recipes WHERE id = $1", [id]);
     res.status(200).json({ message: "Recipe deleted successfully" });
   } catch (error) {
-    console.error("Error deleting recipe from favorite recipes:", error.message);
+    console.error(
+      "Error deleting recipe from favorite recipes:",
+      error.message
+    );
     res.status(500).json({ error: "Internal Server Error" });
   }
 });

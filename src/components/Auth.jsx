@@ -27,14 +27,13 @@ const Auth = ({ handleLogin }) => {
         console.log("Registration Response:", res.data);
         alert(res.data.message); // Alert registration message
         // Redirect to login page after successful registration
-        window.location.href = "/login";
+        navigate("/login");
       } else {
         const res = await axios.post("/login", formData);
         console.log("Login Response:", res.data);
         // Call handleLogin upon successful login
         handleLogin();
         // Redirect to home page after successful login
-        // window.location.href = "/";
         navigate("/");
       }
     } catch (error) {

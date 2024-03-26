@@ -4,7 +4,7 @@ import { Stack, Button } from "@mui/material";
 import Logo from "../assets/images/Logo.png";
 import "../App.css"; // Import CSS file for Navbar styling
 
-const Navbar = ({ isAuthenticated, userName, handleLogout }) => (
+const Navbar = ({ isAuthenticated, user, handleLogout }) => (
   <div className="navbar-container">
     {/* Wrap Stack in a div for positioning */}
     <Stack
@@ -32,7 +32,7 @@ const Navbar = ({ isAuthenticated, userName, handleLogout }) => (
           <>
             <NavLink to="/mypage">
               My Page
-              {/* ({userName}) */}
+              {/* ({user.name}) */}
             </NavLink>
             <Button
               variant="contained"

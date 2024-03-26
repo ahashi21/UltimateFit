@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Button, Stack, Typography } from "@mui/material";
 import AddWorkoutPlan from "./AddWorkoutPlan";
 
-const ExerciseCard = ({ exercise, onAddToWorkoutPlan }) => {
+const ExerciseCard = ({ exercise, onAddToWorkoutPlan, isAuthenticated, user }) => {
   return (
     <div className="exercise-card">
       <Link to={`/exercise/${exercise.id}`}>
@@ -46,12 +46,15 @@ const ExerciseCard = ({ exercise, onAddToWorkoutPlan }) => {
           {exercise.name}
         </Typography>
       </Link>
-      <AddWorkoutPlan
-        exercise={exercise}
-        onAddToWorkoutPlan={onAddToWorkoutPlan}
-      >
-        {/* Add to Workout Plan */}
-      </AddWorkoutPlan>
+      {isAuthenticated && ( // Corrected the conditional rendering syntax
+        <AddWorkoutPlan
+          exercise={exercise}
+          onAddToWorkoutPlan={onAddToWorkoutPlan}
+          user={user}
+        >
+          {/* Add to Workout Plan */}
+        </AddWorkoutPlan>
+      )}
     </div>
   );
 };
