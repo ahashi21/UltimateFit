@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios"; // Import Axios
 import { Button } from "@mui/material";
 
-const RecipeFav = ({ recipe, onAddToFavoriteRecipe, OwnerId }) => {
+const RecipeFav = ({ recipe, onAddToFavoriteRecipe, user }) => {
   const handleRecipeFav = async () => {
     console.log("recipe", recipe);
     console.log("recipe.recipe.uri", recipe.recipe.uri);
@@ -10,7 +10,7 @@ const RecipeFav = ({ recipe, onAddToFavoriteRecipe, OwnerId }) => {
     try {
       // Prepare the data to be sent in the POST request
       const requestData = {
-        owner_id: OwnerId, // Replace with the actual owner ID
+        owner_id: user.id, // Replace with the actual owner ID
         recipes_id: recipe.recipe.uri,
         recipe_label: recipe.recipe.label,
         recipe_url: recipe.recipe.url,

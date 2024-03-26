@@ -2,9 +2,6 @@ import React, { useState, useEffect } from "react";
 import {
   Box,
   Button,
-  List,
-  ListItem,
-  ListItemText,
   Table,
   TableBody,
   TableCell,
@@ -16,7 +13,7 @@ import {
 } from "@mui/material";
 import axios from "axios";
 
-const MyPage = () => {
+const MyPage = ({ user }) => {
   const [favoritedRecipes, setFavoritedRecipes] = useState([]); // State to store favorited recipes
   const [workoutPlan, setWorkoutPlan] = useState([]); // State to store workout plan
 
@@ -24,7 +21,9 @@ const MyPage = () => {
     // Fetch favorite recipes from backend
     const fetchFavoriteRecipes = async () => {
       try {
-        const response = await axios.get("/favorite-recipes");
+        const response = await axios.get("/favorite-recipes", {
+          params: { owner_id: user.id }, // Pass user.id to filter by owner_id
+        });
         setFavoritedRecipes(response.data);
       } catch (error) {
         console.error("Error fetching favorite recipes:", error);
@@ -34,7 +33,9 @@ const MyPage = () => {
     // Fetch workout plan from backend
     const fetchWorkoutPlan = async () => {
       try {
-        const response = await axios.get("/workout-plan");
+        const response = await axios.get("/workout-plan", {
+          params: { owner_id: user.id }, // Pass user.id to filter by owner_id
+        });
         setWorkoutPlan(response.data);
       } catch (error) {
         console.error("Error fetching workout plan:", error);
@@ -43,7 +44,7 @@ const MyPage = () => {
 
     fetchFavoriteRecipes();
     fetchWorkoutPlan();
-  }, []);
+  }, [user.id]); // Include user.id in the dependency array
 
   // Function to handle changes in sets, reps, and weight
   const handleChange = (index, key, value) => {
@@ -92,7 +93,7 @@ const MyPage = () => {
   // Function to delete a recipe from favorite recipes
   const handleRecipeDelete = async (index) => {
     const updatedFav = [...favoritedRecipes];
-    updatedFav.splice(index, 1); // Remove the exercise at the specified index
+    updatedFav.splice(index, 1); // Remove the recipe at the specified index
     setFavoritedRecipes(updatedFav);
 
     try {
@@ -107,7 +108,7 @@ const MyPage = () => {
   };
 
   return (
-    <Box>
+    <Box marginTop="150px">
       <h1>My Workout Plan</h1>
       <TableContainer component={Paper}>
         <Table>
@@ -172,17 +173,45 @@ const MyPage = () => {
         Save Changes
       </Button>
 
-      <h1>My Favorite Recipes</h1>
-      {/* Display favorite recipes as a list */}
-      <List>
-        {console.log("favoritedRecipes", favoritedRecipes)}
-        {favoritedRecipes.map((recipe, index) => (
-          <ListItem key={index}>
-            <ListItemText primary={recipe.recipe_label} />
-            <Button onClick={() => handleRecipeDelete(index)}>Delete</Button>
-          </ListItem>
-        ))}
-      </List>
+      <div />
+
+      <h1 marginTop="40px">My Favorite Recipes</h1>
+      <TableContainer component={Paper}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>Recipe Name</TableCell>
+              <TableCell>Diet</TableCell>
+              <TableCell>Calories (Kcal)</TableCell>
+              <TableCell>Action</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {/* Render each favorite recipe */}
+            {favoritedRecipes.map((recipe, index) => (
+              <TableRow key={index}>
+                <TableCell>
+                  <a href={recipe.recipe_url}>{recipe.recipe_label}</a>
+                </TableCell>
+                <TableCell>
+                  {" "}
+                  {recipe.recipe_dietLabels
+                    ? recipe.recipe_dietLabels.join(", ")
+                    : ""}
+                </TableCell>
+                <TableCell>
+                  {parseFloat(recipe.recipe_calories).toFixed(2)}
+                </TableCell>
+                <TableCell>
+                  <Button onClick={() => handleRecipeDelete(index)}>
+                    Delete
+                  </Button>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
     </Box>
   );
 };

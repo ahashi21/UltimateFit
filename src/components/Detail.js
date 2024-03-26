@@ -1,12 +1,16 @@
 import React from "react";
 import { Typography, Stack, Button } from "@mui/material";
-
 import BodyPartImage from "../assets/icons/body-part.png";
 import TargetImage from "../assets/icons/target.png";
 import EquipmentImage from "../assets/icons/equipment.png";
 import AddWorkoutPlan from "./AddWorkoutPlan";
 
-const Detail = ({ exerciseDetail, onAddToWorkoutPlan }) => {
+const Detail = ({
+  exerciseDetail,
+  onAddToWorkoutPlan,
+  isAuthenticated,
+  user,
+}) => {
   const { bodyPart, gifUrl, name, target, equipment } = exerciseDetail;
 
   const extraDetail = [
@@ -72,12 +76,15 @@ const Detail = ({ exerciseDetail, onAddToWorkoutPlan }) => {
           </Stack>
         ))}
       </Stack>
-      <AddWorkoutPlan
-        exercise={exerciseDetail}
-        onAddToWorkoutPlan={onAddToWorkoutPlan}
-      >
-        {/* Add to Workout Plan */}
-      </AddWorkoutPlan>
+      {isAuthenticated && ( // Corrected the conditional rendering syntax
+        <AddWorkoutPlan
+          exercise={exerciseDetail}
+          onAddToWorkoutPlan={onAddToWorkoutPlan}
+          user={user}
+        >
+          {/* Add to Workout Plan */}
+        </AddWorkoutPlan>
+      )}
     </Stack>
   );
 };
