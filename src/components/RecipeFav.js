@@ -34,14 +34,21 @@ const RecipeFav = ({ recipe, onAddToFavoriteRecipe, OwnerId }) => {
   };
 
   return (
-    <div className="recipe-fav">
+    <div className="recipe-fav" style={{ margin: "20px" }}>
       <Button
         onClick={handleRecipeFav}
         sx={{
-          background: "#FFF2DB",
-          borderRadius: "50%",
-          width: "100px",
-          height: "100px",
+          background: "#12AF57",
+          color: "#FFFFFF",
+          borderRadius: "8px",
+          padding: "12px 24px",
+          border: "none",
+          boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
+          transition: "background-color 0.3s ease, transform 0.2s ease",
+          "&:hover": {
+            backgroundColor: "#0D8C4F",
+            transform: "scale(1.05)",
+          },
         }}
       >
         Add to my favorite list

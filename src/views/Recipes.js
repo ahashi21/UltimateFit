@@ -40,6 +40,7 @@ const Recipes = ({ recipe, onAddToFavoriteRecipe, OwnerId }) => {
           setRecipes={setRecipes}
           category={category}
           setCategory={setCategory}
+          className="search-button" // make it green
         />
 
         {recipes.map((recipe) => (

@@ -7,12 +7,19 @@ import BodyPart from "./BodyPart";
 import RightArrowIcon from "../assets/icons/right-arrow.png";
 import LeftArrowIcon from "../assets/icons/left-arrow.png";
 
+const arrowStyle = {
+  width: "40px", // Adjust the width to make the arrows smaller
+  height: "40px", // Adjust the height to make the arrows smaller
+};
+
 const LeftArrow = () => {
   const { scrollPrev } = useContext(VisibilityContext);
 
   return (
     <Typography onClick={() => scrollPrev()} className="right-arrow">
-      <img src={LeftArrowIcon} alt="right-arrow" />
+      <div style={arrowStyle}>
+        <img src={LeftArrowIcon} alt="left-arrow" style={arrowStyle} />
+      </div>
     </Typography>
   );
 };
@@ -22,7 +29,9 @@ const RightArrow = () => {
 
   return (
     <Typography onClick={() => scrollNext()} className="left-arrow">
-      <img src={RightArrowIcon} alt="right-arrow" />
+      <div style={arrowStyle}>
+        <img src={RightArrowIcon} alt="right-arrow" style={arrowStyle} />
+      </div>
     </Typography>
   );
 };
