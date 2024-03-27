@@ -25,6 +25,20 @@ const MyPage = ({ user }) => {
           params: { owner_id: user.id }, // Pass user.id to filter by owner_id
         });
         setFavoritedRecipes(response.data);
+
+        // Log favorited recipes and their diet labels
+        console.log("favorited recipes:", response.data);
+        response.data.forEach((recipe) => {
+          try {
+            const dietLabels = JSON.parse(
+              recipe.recipe_dietlabels.replace(/"/g, "")
+            );
+            console.log("recipe_dietLabels:", dietLabels);
+          } catch (error) {
+            console.error("Error parsing diet labels:", error);
+            console.log("Raw diet labels:", recipe.recipe_dietlabels);
+          }
+        });
       } catch (error) {
         console.error("Error fetching favorite recipes:", error);
       }
@@ -169,19 +183,20 @@ const MyPage = ({ user }) => {
       </TableContainer>
 
       {/* Button to save changes */}
-      <Button variant="contained" onClick={handleSave}>
+      <Button marginBottom="40px" variant="contained" onClick={handleSave}>
         Save Changes
       </Button>
 
-      <div />
+      <div marginTop="40px"></div>
 
-      <h1 marginTop="40px">My Favorite Recipes</h1>
+      <h1 style={{ marginTop: "40px" }}>My Favorite Recipes</h1>
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
             <TableRow>
               <TableCell>Recipe Name</TableCell>
-              <TableCell>Diet</TableCell>
+              <TableCell></TableCell>
+              <TableCell></TableCell>
               <TableCell>Calories (Kcal)</TableCell>
               <TableCell>Action</TableCell>
             </TableRow>
@@ -193,12 +208,8 @@ const MyPage = ({ user }) => {
                 <TableCell>
                   <a href={recipe.recipe_url}>{recipe.recipe_label}</a>
                 </TableCell>
-                <TableCell>
-                  {" "}
-                  {recipe.recipe_dietLabels
-                    ? recipe.recipe_dietLabels.join(", ")
-                    : ""}
-                </TableCell>
+                <TableCell></TableCell>
+                <TableCell></TableCell>
                 <TableCell>
                   {parseFloat(recipe.recipe_calories).toFixed(2)}
                 </TableCell>

@@ -36,7 +36,7 @@ const SearchRecipes = ({ setRecipes }) => {
         mb="49px"
         textAlign="center"
       >
-        Search Recipes
+        {/* Search Recipes */}
       </Typography>
       <Box position="relative" mb="72px">
         <TextField

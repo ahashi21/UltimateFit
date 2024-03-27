@@ -7,6 +7,7 @@ const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
   const [search, setSearch] = useState("");
   const [bodyParts, setBodyParts] = useState([]);
   const [buttonHovered, setButtonHovered] = useState(false);
+  const [visibleItems, setVisibleItems] = useState(5); // Number of visible items at a time
 
   useEffect(() => {
     const fetchExercisesData = async () => {
@@ -20,38 +21,48 @@ const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
     fetchExercisesData();
   }, []);
 
-  const handleSearch = async () => {
-    if (search) {
-      const exercisesData = await fetchData(
-        "https://exercisedb.p.rapidapi.com/exercises",
-        exerciseOptions
-      );
+  // const handleSearch = async () => {
+  //   if (search) {
+  //     const exercisesData = await fetchData(
+  //       "https://exercisedb.p.rapidapi.com/exercises",
+  //       exerciseOptions
+  //     );
 
-      const searchedExercises = exercisesData.filter(
-        (item) =>
-          item.name.toLowerCase().includes(search) ||
-          item.target.toLowerCase().includes(search) ||
-          item.equipment.toLowerCase().includes(search) ||
-          item.bodyPart.toLowerCase().includes(search)
-      );
+  //     const searchedExercises = exercisesData.filter(
+  //       (item) =>
+  //         item.name.toLowerCase().includes(search) ||
+  //         item.target.toLowerCase().includes(search) ||
+  //         item.equipment.toLowerCase().includes(search) ||
+  //         item.bodyPart.toLowerCase().includes(search)
+  //     );
 
-      window.scrollTo({ top: 1800, left: 100, behavior: "smooth" });
+  //     window.scrollTo({ top: 1800, left: 100, behavior: "smooth" });
 
-      setSearch("");
-      setExercises(searchedExercises);
-    }
+  //     setSearch("");
+  //     setExercises(searchedExercises);
+  //   }
+  // };
+
+  const scrollPrev = () => {
+    setVisibleItems((prevVisibleItems) => Math.max(prevVisibleItems - 1, 5)); // Ensure a minimum of 5 visible items
+  };
+
+  const scrollNext = () => {
+    setVisibleItems((prevVisibleItems) =>
+      Math.min(prevVisibleItems + 1, bodyParts.length)
+    ); // Ensure maximum is the length of bodyParts array
   };
 
   return (
     <Stack alignItems="center" mt="87px" justifyContent="center" p="20px">
-      <Typography
+      {/* <Typography
         fontWeight={700}
         sx={{ fontSize: { lg: "44px", xs: "30px" } }}
         mb="49px"
         textAlign="center"
-      ></Typography>
-      <Box position="relative" mb="72px">
-        <TextField
+      ></Typography> */}
+      {/* <Box position="relative" mb="72px"> */}
+      {/* <TextField
           height="76px"
           sx={{
             input: { fontWeight: "700", border: "none", borderRadius: "4px" },
@@ -63,8 +74,8 @@ const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
           onChange={(e) => setSearch(e.target.value.toLowerCase())}
           placeholder="Search Exercises"
           type="text"
-        />
-        <Button
+        /> */}
+      {/* <Button
           className="search-btn"
           sx={{
             bgcolor: buttonHovered ? "#12af57" : "#12AF57",
@@ -81,14 +92,15 @@ const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
           onClick={handleSearch}
         >
           Search
-        </Button>
-      </Box>
+        </Button> */}
+      {/* </Box> */}
       <Box sx={{ position: "relative", width: "100%", p: "20px" }}>
         <HorizontalScrollbar
           data={bodyParts}
           bodyParts
           setBodyPart={setBodyPart}
           bodyPart={bodyPart}
+          visibleItems={visibleItems}
         />
       </Box>
     </Stack>
