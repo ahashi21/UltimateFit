@@ -43,15 +43,15 @@ const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
   //   }
   // };
 
-  const scrollPrev = () => {
-    setVisibleItems((prevVisibleItems) => Math.max(prevVisibleItems - 1, 5)); // Ensure a minimum of 5 visible items
-  };
+  // const scrollPrev = () => {
+  //   setVisibleItems((prevVisibleItems) => Math.max(prevVisibleItems - 1, 5)); // Ensure a minimum of 5 visible items
+  // };
 
-  const scrollNext = () => {
-    setVisibleItems((prevVisibleItems) =>
-      Math.min(prevVisibleItems + 1, bodyParts.length)
-    ); // Ensure maximum is the length of bodyParts array
-  };
+  // const scrollNext = () => {
+  //   setVisibleItems((prevVisibleItems) =>
+  //     Math.min(prevVisibleItems + 1, bodyParts.length)
+  //   ); // Ensure maximum is the length of bodyParts array
+  // };
 
   return (
     <Stack alignItems="center" mt="87px" justifyContent="center" p="20px">

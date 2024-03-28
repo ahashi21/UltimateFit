@@ -26,7 +26,7 @@ router.post("/register", async (req, res) => {
     console.log("Registration success:", result.rows[0]);
     res
       .status(201)
-      .json({ message: "Registration successful. Please sign in." });
+      .json({ message: "Registration successful. Enjoy your App" });
   } catch (error) {
     console.error("Registration error:", error.message);
     res.status(500).json({ error: "Internal Server Error" });

@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { Box } from "@mui/material";
@@ -58,6 +58,7 @@ const App = () => {
     setExercises([...exercises, exercise]);
   };
   console.log("User:", user); // Log the user object
+
   return (
     <Box width="400px" sx={{ width: { xl: "1488px" } }} m="auto">
       <Navbar

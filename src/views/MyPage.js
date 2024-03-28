@@ -12,6 +12,7 @@ import {
   TextField,
 } from "@mui/material";
 import axios from "axios";
+import { fetchData, exerciseOptions } from "../utils/fetchData";
 
 const MyPage = ({ user }) => {
   const [favoritedRecipes, setFavoritedRecipes] = useState([]); // State to store favorited recipes
@@ -50,7 +51,18 @@ const MyPage = ({ user }) => {
         const response = await axios.get("/workout-plan", {
           params: { owner_id: user.id }, // Pass user.id to filter by owner_id
         });
-        setWorkoutPlan(response.data);
+        const upDatedWorkoutPlan = [];
+        for (const workoutPlan of response.data) {
+          const response = await fetchData(
+            `https://exercisedb.p.rapidapi.com/exercises/exercise/${workoutPlan.exercise_id}`,
+            exerciseOptions
+          );
+          const image = response.gifUrl;
+          upDatedWorkoutPlan.push({ ...workoutPlan, gifUrl: image });
+          console.log("image", image);
+        }
+
+        setWorkoutPlan(upDatedWorkoutPlan);
       } catch (error) {
         console.error("Error fetching workout plan:", error);
       }
@@ -120,7 +132,7 @@ const MyPage = ({ user }) => {
       alert("Failed to delete recipe. Please try again later.");
     }
   };
-
+  console.log("workoutPlan", workoutPlan);
   return (
     <Box marginTop="150px">
       <h1>My Workout Plan</h1>
@@ -129,6 +141,7 @@ const MyPage = ({ user }) => {
           <TableHead>
             <TableRow>
               <TableCell>Exercise Name</TableCell>
+              <TableCell>Demonstration</TableCell>
               <TableCell>Body Part</TableCell>
               <TableCell>Sets</TableCell>
               <TableCell>Reps</TableCell>
@@ -140,8 +153,15 @@ const MyPage = ({ user }) => {
             {/* Render each exercise in workout plan */}
             {workoutPlan.map((exercise, index) => (
               <TableRow key={index}>
+                <TableCell>{exercise.exercise_name}</TableCell>
                 <TableCell>
-                  <a href={exercise.exercise_url}>{exercise.exercise_name}</a>
+                  <img
+                    src={exercise.gifUrl}
+                    alt={"exerciseimage"}
+                    loading="eager"
+                    // className="detail-image"
+                    height="180px"
+                  />
                 </TableCell>
                 <TableCell>{exercise.exercise_bodypart}</TableCell>
                 <TableCell>

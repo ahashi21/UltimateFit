@@ -17,7 +17,7 @@ const ExerciseVideos = ({ exerciseVideos, name }) => {
         <span style={{ color: "#FF2625", textTransform: "capitalize" }}>
           {name}
         </span>{" "}
-        exercise videos
+        related exercise videos
       </Typography>
       <Stack
         sx={{ flexDirection: { lg: "row" }, gap: { lg: "110px", xs: "0px" } }}

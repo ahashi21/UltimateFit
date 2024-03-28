@@ -1,13 +1,14 @@
 import React, { useState } from "react";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
+import { ScrollMenu, VisibilityContext } from "react-horizontal-scrolling-menu";
+import ExerciseCard from "./ExerciseCard";
 import BodyPart from "./BodyPart";
 import RightArrowIcon from "../assets/icons/right-arrow.png";
 import LeftArrowIcon from "../assets/icons/left-arrow.png";
 
-
 const arrowStyle = {
-  width: "40px",
-  height: "40px",
+  width: "40px", // Adjust the width to make the arrows smaller
+  height: "40px", // Adjust the height to make the arrows smaller
 };
 
 const iconBoxStyle = {
@@ -16,8 +17,13 @@ const iconBoxStyle = {
   marginRight: "10px", // Add margin between icon boxes
 };
 
-const HorizontalScrollbar = ({ data, setBodyPart, bodyPart, visibleItems }) => {
-  const isItemSelected = (item) => item === bodyPart;
+const DetailHorizontalScrollbar = ({
+  data,
+  bodyParts,
+  setBodyPart,
+  bodyPart,
+  visibleItems,
+}) => {
   const [scrollPosition, setScrollPosition] = useState(0);
 
   const handlePrevClick = () => {
@@ -41,16 +47,23 @@ const HorizontalScrollbar = ({ data, setBodyPart, bodyPart, visibleItems }) => {
           .map((item, index) => (
             <Box
               key={item.id || item}
+              itemId={item.id || item}
+              title={item.id || item}
+              m="0 10px" // Adjust margin for items
               style={{
                 ...iconBoxStyle,
                 marginRight: index < visibleItems - 1 ? "10px" : 0,
               }}
             >
-              <BodyPart
-                item={item}
-                setBodyPart={setBodyPart}
-                isSelected={isItemSelected(item)}
-              />
+              {bodyParts ? (
+                <BodyPart
+                  item={item}
+                  setBodyPart={setBodyPart}
+                  bodyPart={bodyPart}
+                />
+              ) : (
+                <ExerciseCard exercise={item} />
+              )}
             </Box>
           ))}
       </div>
@@ -63,16 +76,20 @@ const HorizontalScrollbar = ({ data, setBodyPart, bodyPart, visibleItems }) => {
         }}
       >
         <div
-          style={{ visibility: showLeftArrow ? "visible" : "hidden" }}
+          style={{
+            visibility: showLeftArrow ? "visible" : "hidden",
+            cursor: "pointer",
+          }}
           onClick={handlePrevClick}
-          style={{ cursor: "pointer" }}
         >
           <img src={LeftArrowIcon} alt="left-arrow" style={arrowStyle} />
         </div>
         <div
-          style={{ visibility: showRightArrow ? "visible" : "hidden" }}
+          style={{
+            visibility: showRightArrow ? "visible" : "hidden",
+            cursor: "pointer",
+          }}
           onClick={handleNextClick}
-          style={{ cursor: "pointer" }}
         >
           <img src={RightArrowIcon} alt="right-arrow" style={arrowStyle} />
         </div>
@@ -81,4 +98,4 @@ const HorizontalScrollbar = ({ data, setBodyPart, bodyPart, visibleItems }) => {
   );
 };
 
-export default HorizontalScrollbar;
+export default DetailHorizontalScrollbar;

@@ -77,7 +77,7 @@ const AddWorkoutPlan = ({ exercise, user, onAddToWorkoutPlan }) => {
 
   return (
     <Button
-      onClick={isExerciseAdded ? handleExerciseDelete : handleAddToWorkoutPlan}
+      onClick={handleAddToWorkoutPlan}
       sx={{
         background: "#FFF2DB",
         borderRadius: "50%",
@@ -85,7 +85,7 @@ const AddWorkoutPlan = ({ exercise, user, onAddToWorkoutPlan }) => {
         height: "100px",
       }}
     >
-      {isExerciseAdded ? "Delete from my workout" : "Add to my workout"}
+      {"Add to my workout"}
     </Button>
   );
 };

@@ -11,6 +11,7 @@ const Detail = ({
   isAuthenticated,
   user,
 }) => {
+  console.log("exerciseDetail", exerciseDetail);
   const { bodyPart, gifUrl, name, target, equipment } = exerciseDetail;
 
   const extraDetail = [

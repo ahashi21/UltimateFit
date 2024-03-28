@@ -62,7 +62,7 @@ const Exercises = ({
   }
 
   return (
-    <Box id="exercises" sx={{ mt: { lg: "109px" } }} mt="50px" p="20px">
+    <Box id="exercises" sx={{ mt: { lg: "20px" } }} mt="50px" p="20px">
       <Typography
         variant="h4"
         fontWeight="bold"
