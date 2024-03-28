@@ -26,8 +26,15 @@ const Auth = ({ handleLogin, setUser }) => {
         const res = await axios.post("/register", formData);
         console.log("Registration Response:", res.data);
         alert(res.data.message); // Alert registration message
-        // Redirect to login page after successful registration
-        navigate("/login");
+
+        // Automatically sign in after successful registration
+        const loginRes = await axios.post("/login", formData);
+        setUser(loginRes.data.user);
+        console.log("Login Response:", loginRes.data);
+        // Call handleLogin upon successful login
+        handleLogin();
+        // Redirect to home page after successful login
+        navigate("/");
       } else {
         const res = await axios.post("/login", formData);
         setUser(res.data.user);

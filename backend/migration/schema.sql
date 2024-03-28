@@ -15,7 +15,7 @@ CREATE TABLE users (
 CREATE TABLE workout_plan (
   id SERIAL PRIMARY KEY NOT NULL,
   owner_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
-  exercise_id INTEGER NOT NULL,
+  exercise_id VARCHAR(5) NOT NULL,
   exercise_name VARCHAR(255) NOT NULL,
   exercise_bodypart VARCHAR(255) NOT NULL,
   exercise_url VARCHAR(255) NOT NULL,
