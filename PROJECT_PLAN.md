@@ -7,6 +7,9 @@ UltimateFit is a fitness app where users after registering, can log in and choos
 ## Tech stack:
 
 - React
+- PostgreSQL
+- Express
+- Axios
 - Node.js
 - APIs
   - [https://rapidapi.com/justin-WFnsXH_t6/api/exercisedb/](https://rapidapi.com/justin-WFnsXH_t6/api/exercisedb/)

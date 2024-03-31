@@ -13,7 +13,7 @@ const SearchRecipes = ({ setRecipes }) => {
         headers: {
           "Accept-Language": "en",
           "X-RapidAPI-Key":
-            "177ed6bc56mshdb0536d4d73cf38p1a682fjsn9405fee34da6",
+            "98afb56a22msh04fe5810ae5fe29p126885jsn62a1e134f012",
           "X-RapidAPI-Host": "edamam-recipe-search.p.rapidapi.com",
         },
       };
